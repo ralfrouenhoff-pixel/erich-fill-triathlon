@@ -1,1007 +1,447 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Erich-Fill-Triathlon Taunusstein | 16. Mai 2027</title>
-  <meta name="description" content="Offizielle Website des Erich-Fill-Triathlons Taunusstein. 39. Auflage am 16. Mai 2027 — 700 Höhenmeter im Taunus. Anmeldung, Strecken, Ausschreibung.">
-  <meta name="keywords" content="Erich-Fill-Triathlon, Triathlon Taunusstein, Triathlon Hessen, Triathlon 2027, United Teams Rhein-Ruhr">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#10141A">
-  <link rel="canonical" href="https://erich-fill-triathlon.de/">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://erich-fill-triathlon.de/">
-  <meta property="og:title" content="Erich-Fill-Triathlon Taunusstein | 16. Mai 2027">
-  <meta property="og:description" content="Der Klassiker im Taunus. 700 Höhenmeter, drei Disziplinen, ein Ziel. Alle Infos & Anmeldung.">
-  <meta property="og:locale" content="de_DE">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SportsEvent",
-    "name": "Erich-Fill-Triathlon Taunusstein 2027",
-    "startDate": "2027-05-16T09:00:00+02:00",
-    "endDate": "2027-05-16T18:00:00+02:00",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "sport": "Triathlon",
-    "location": {
-      "@type": "Place",
-      "name": "Freibad Taunusstein-Hahn",
-      "address": { "@type": "PostalAddress", "addressLocality": "Taunusstein", "postalCode": "65232", "addressCountry": "DE" }
-    },
-    "organizer": { "@type": "SportsOrganization", "name": "United Teams Rhein-Ruhr e.V." }
-  }
-  </script>
-
-  <link rel="stylesheet" href="assets/fonts.css">
-  <link rel="stylesheet" href="assets/site.css">
-
-  <style>
-/* ========= HERO ========= */
-    .hero {
-      position: relative;
-      /* Der Hero beginnt unter der 5rem hohen Navbar — ohne den Abzug
-         ragt er strukturell immer um deren Höhe über den Rand hinaus.
-         svh statt vh: rechnet mit sichtbarer Browserleiste auf Mobil. */
-      min-height: calc(100vh - 5rem);
-      min-height: calc(100svh - 5rem);
-      display: flex; align-items: center;
-      overflow: hidden; padding: 5rem 0 4.5rem;
-      background: var(--navy);
-    }
-    /* .container ist hier Flex-Item — ohne width:100% schrumpft es auf Inhaltsbreite */
-    .hero > .container { width: 100%; }
-    .hero-photo {
-      position: absolute; inset: 0; z-index: 0;
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center 28%;
-      opacity: .78; filter: saturate(.9) contrast(1.06);
-    }
-    /* Asymmetrisch: links stark abgedunkelt für die Textlesbarkeit,
-       rechts nur leicht, damit der Athlet erkennbar bleibt. */
-    .hero-veil {
-      position: absolute; inset: 0; z-index: 1;
-      background:
-        linear-gradient(100deg, rgba(16,20,26,.94) 0%, rgba(16,20,26,.88) 32%,
-                        rgba(16,20,26,.55) 60%, rgba(16,20,26,.32) 100%),
-        linear-gradient(to bottom, rgba(16,20,26,.78) 0%, transparent 26%,
-                        transparent 60%, var(--navy) 100%);
-    }
-    /* Auf schmalen Viewports liegt der Text über dem ganzen Bild */
-    @media(max-width:860px){
-      .hero-photo { opacity: .58; }
-      .hero-veil {
-        background:
-          linear-gradient(180deg, rgba(16,20,26,.88) 0%, rgba(16,20,26,.72) 38%,
-                          rgba(16,20,26,.82) 72%, var(--navy) 100%);
-      }
-    }
-    /* Große, dezente Hügellinie im Hero */
-    .hero-hills {
-      position: absolute; left: 0; right: 0; bottom: 8%; z-index: 1;
-      pointer-events: none;
-    }
-    .hero-hills svg { width: 100%; height: auto; display: block; }
-    .hero-hills .h1 { fill: none; stroke: var(--blue-light); stroke-width: 2; opacity: .22; }
-    .hero-hills .h2 { fill: none; stroke: #fff;        stroke-width: 2; opacity: .09; }
-    .hero-hills .h3 { fill: none; stroke: #fff;        stroke-width: 2; opacity: .05; }
-
-    .hero-content { position: relative; z-index: 2; max-width: 900px; width: 100%; }
-
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: .65rem;
-      padding: .45rem 1.1rem; margin-bottom: 2rem; border-radius: var(--pill);
-      background: rgba(90,155,208,.12); border: 1px solid rgba(90,155,208,.38);
-      font-family: var(--fu); font-size: .6875rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .14em; color: var(--blue-light);
-      animation: riseIn .6s ease .05s both;
-    }
-    .eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--blue-light); animation: blink 2.4s ease-in-out infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
-
-    /* Hügellinie direkt über dem Titel — das Logo, monumentalisiert */
-    .hero-title { margin-bottom: 1.9rem; animation: riseIn .7s ease .18s both; }
-    .hero-logo { width: min(100%, 38rem); height: auto; display: block; }
-
-    /* Flache Viewports (13"-Laptops, Handys quer, kleine Handys):
-       Hier ist Höhe knapp, nicht Breite — deshalb greift eine
-       Höhen-Query, damit der Anmelde-Button über der Kante bleibt. */
-    @media (max-height: 880px){
-      .hero { padding: 3rem 0 3rem; }
-      .hero-logo { width: min(100%, 29rem); }
-      .hero-eyebrow { margin-bottom: 1.1rem; }
-      .hero-title { margin-bottom: 1.1rem; }
-      .hero-sub { margin-bottom: 1.4rem; }
-      .countdown { margin-bottom: 1.4rem; gap: .55rem; }
-      .cd-unit { padding: .7rem 1rem; min-width: 4.4rem; }
-      /* .hero davor, sonst gewinnt die spätere .scroll-hint-Regel */
-      .hero .scroll-hint { display: none; }
-    }
-    @media (max-height: 880px) and (max-width: 560px){
-      .hero-sub { font-size: .95rem; margin-bottom: 1.1rem; }
-      .hero-eyebrow { margin-bottom: .9rem; }
-      .hero-ctas { gap: .6rem; }
-      .hero-ctas .btn-xl { padding: .9rem 2rem; font-size: .9rem; }
-    }
-
-    .hero-sub {
-      font-size: clamp(1rem, 2.2vw, 1.15rem); color: #C7CFD9;
-      max-width: 520px; line-height: 1.75; margin-bottom: 2.75rem;
-      animation: riseIn .7s ease .34s both;
-    }
-    .hero-sub strong { color: var(--off); font-weight: 600; }
-
-    /* Countdown */
-    .countdown { display: flex; gap: .75rem; flex-wrap: wrap; margin-bottom: 2.75rem; animation: riseIn .7s ease .45s both; }
-    .cd-unit {
-      display: flex; flex-direction: column; align-items: center;
-      min-width: 5rem; padding: .95rem 1.2rem;
-      /* Dunkles Scrim statt hellem Film — trägt auch über hellen Bildstellen */
-      background: rgba(8,11,15,.62); border: 1px solid rgba(255,255,255,.14);
-      border-radius: var(--r); backdrop-filter: blur(3px);
-    }
-    .cd-num {
-      font-family: var(--fd); font-size: clamp(1.9rem, 5vw, 2.85rem);
-      font-weight: 900; line-height: 1; letter-spacing: -.02em; color: var(--off);
-    }
-    .cd-num.days { color: var(--blue-light); }
-    .cd-label { font-family: var(--fu); font-size: .55rem; font-weight: 800; text-transform: uppercase; letter-spacing: .16em; color: var(--t-dark-mute); margin-top: .45rem; }
-    @keyframes cdFlip { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
-    .cd-num.flip { animation: cdFlip .22s ease forwards; }
-
-    .hero-ctas { display: flex; flex-wrap: wrap; gap: .9rem; animation: riseIn .7s ease .55s both; }
-    .hero .btn-outline { color: var(--off); border-color: rgba(255,255,255,.28); }
-    .hero .btn-outline:hover { border-color: var(--off); }
-
-    .scroll-hint {
-      position: absolute; bottom: 1.75rem; left: 50%; transform: translateX(-50%);
-      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .5rem;
-      font-family: var(--fu); font-size: .6rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .16em; color: var(--t-dark-mute);
-      animation: riseIn .7s ease .9s both;
-    }
-    .scroll-ring {
-      width: 1.75rem; height: 1.75rem; border: 1.5px solid rgba(255,255,255,.28);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      animation: scrollBounce 2.2s ease-in-out infinite;
-    }
-    @keyframes scrollBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(5px)} }
-    @keyframes riseIn { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
-    @media(max-height:720px){ .scroll-hint { display: none; } }
-
-/* ========= NEWS ========= */
-    .news-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
-    @media(min-width:700px){
-      .news-grid { grid-template-columns: repeat(3,1fr); }
-      .news-card-featured { grid-column: 1 / -1; }
-    }
-    .news-card {
-      background: var(--surface); border: 1px solid var(--line);
-      border-radius: var(--r); overflow: hidden;
-      transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
-    }
-    .news-card:hover { transform: translateY(-5px); border-color: var(--line-hi); box-shadow: 0 14px 32px rgba(16,20,26,.10); }
-    .news-bar { height: 4px; background: var(--line-hi); }
-    .bar-volt { background: var(--accent2); }
-    .bar-orange { background: var(--orange); }
-    .news-body { padding: 1.6rem; }
-    .news-meta { display: flex; justify-content: space-between; align-items: center; gap: .75rem; margin-bottom: .9rem; }
-    .news-date { font-family: var(--fu); font-size: .6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: .11em; color: var(--mute); }
-    .news-title { font-family: var(--fu); font-size: 1.1rem; font-weight: 800; line-height: 1.35; margin-bottom: .6rem; }
-    .news-text  { font-size: .875rem; color: var(--mute); line-height: 1.75; }
-    .news-text strong { color: var(--txt); font-weight: 600; }
-    .news-card-featured .news-title { font-family: var(--fd); font-style: italic; font-weight: 900; text-transform: uppercase; font-size: clamp(1.5rem,3.6vw,2.4rem); line-height: 1.05; letter-spacing: -.01em; }
-    .news-card-featured .news-body { padding: 2.1rem; }
-    .news-card-featured .news-text { max-width: 74ch; font-size: .95rem; }
-
-/* ========= DISZIPLINEN ========= */
-    .disc-grid { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
-    @media(min-width:700px) { .disc-grid { grid-template-columns: repeat(2,1fr); } }
-    @media(min-width:1024px){ .disc-grid { grid-template-columns: repeat(3,1fr); } }
-
-    .disc-card {
-      position: relative; overflow: hidden; isolation: isolate;
-      border-radius: var(--r); min-height: 22rem;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      padding: 1.9rem;
-      border: 1px solid rgba(255,255,255,.10);
-      transition: transform .35s ease, border-color .35s ease;
-    }
-    .disc-card:hover { transform: translateY(-6px); border-color: rgba(90,155,208,.55); }
-    .disc-card-img {
-      position: absolute; inset: 0; z-index: -2;
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(.55) brightness(.62);
-      transition: transform .6s ease;
-    }
-    .disc-card:hover .disc-card-img { transform: scale(1.05); }
-    .disc-card::after {
-      content: ''; position: absolute; inset: 0; z-index: -1;
-      background: linear-gradient(to top, rgba(8,11,15,.94) 8%, rgba(8,11,15,.62) 46%, rgba(8,11,15,.34) 100%);
-    }
-    .disc-idx {
-      font-family: var(--fu); font-size: .65rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .2em; color: var(--blue-light);
-      margin-bottom: .5rem;
-    }
-    .disc-name {
-      font-family: var(--fd); font-size: clamp(1.9rem,4vw,2.5rem); font-weight: 900; font-style: italic;
-      text-transform: uppercase; letter-spacing: -.015em; color: var(--off); margin-bottom: .7rem;
-    }
-    .disc-desc { font-size: .85rem; color: #C3CBD6; line-height: 1.7; margin-bottom: 1.3rem; }
-    .disc-foot {
-      border-top: 1px solid rgba(255,255,255,.18); padding-top: .85rem;
-      display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
-    }
-    .disc-foot-lbl { font-family: var(--fu); font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #9BA5B4; }
-    .disc-foot-val { font-family: var(--fd); font-size: 1.25rem; font-weight: 900; color: var(--off); letter-spacing: .01em; }
-
-/* ========= ATMOSPHERE ========= */
-    .atmo {
-      position: relative; height: clamp(190px, 26vw, 340px); overflow: hidden;
-      background: var(--navy);
-    }
-    .atmo img { width: 100%; height: 100%; object-fit: cover; object-position: center 32%; filter: saturate(.6) brightness(.72); }
-    .atmo-veil {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, var(--navy) 0%, transparent 26%, transparent 72%, var(--off) 100%);
-    }
-
-/* ========= ARCHIV ========= */
-    .arc-grid { display: grid; gap: 1.1rem; grid-template-columns: 1fr; margin-top: 2.5rem; }
-    @media(min-width:760px){ .arc-grid { grid-template-columns: repeat(3,1fr); } }
-    .arc-card {
-      display: flex; flex-direction: column; gap: .55rem;
-      padding: 1.7rem; border-radius: var(--r);
-      background: var(--surface); border: 1px solid var(--line);
-      transition: transform .3s, border-color .3s;
-    }
-    .arc-card:hover { transform: translateY(-5px); border-color: var(--accent2); }
-    .arc-kicker { font-family: var(--fu); font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .18em; color: var(--accent2); }
-    .arc-title { font-family: var(--fd); font-size: 1.7rem; font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -.01em; }
-    .arc-text { font-size: .83rem; color: var(--mute); line-height: 1.7; }
-    .arc-more {
-      margin-top: auto; padding-top: .9rem;
-      font-family: var(--fu); font-size: .72rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .1em; color: var(--txt);
-      display: inline-flex; align-items: center; gap: .45rem;
-    }
-    .arc-card:hover .arc-more { color: var(--accent2); }
-
-/* ========= GALERIE ========= */
-    .gallery-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: .6rem; }
-    .gal-item { overflow: hidden; border-radius: var(--r); aspect-ratio: 4/3; position: relative; display: block; cursor: zoom-in; }
-    .gal-item:first-child  { grid-column: span 2; aspect-ratio: 16/9; }
-    .gal-item:nth-child(4) { grid-column: span 2; aspect-ratio: 16/9; }
-    .gal-item img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(.7) brightness(.86);
-      transition: transform .45s ease, filter .45s ease;
-    }
-    .gal-item:hover img { transform: scale(1.05); filter: saturate(.92) brightness(1); }
-    @media(max-width:640px){
-      .gallery-grid { grid-template-columns: repeat(2,1fr); }
-      .gal-item:first-child  { grid-column: span 2; aspect-ratio: 3/2; }
-      .gal-item:nth-child(4) { grid-column: span 1; aspect-ratio: 4/3; }
-    }
-
-/* ========= AUSSCHREIBUNG ========= */
-    .ausschr-grid { display: grid; gap: 3rem; grid-template-columns: 1fr; align-items: start; }
-    @media(min-width:920px){ .ausschr-grid { grid-template-columns: 1.05fr 1fr; } }
-    .steckbrief { background: var(--surface); border: 1px solid var(--line); border-radius: 1rem; overflow: hidden; }
-    .sb-head {
-      padding: 1.15rem 1.7rem; background: var(--blue); color: #fff;
-      font-family: var(--fu); font-size: .8125rem; font-weight: 800;
-      text-transform: uppercase; letter-spacing: .13em;
-    }
-    .sb-row { display: flex; align-items: baseline; gap: 1rem; padding: .9rem 1.7rem; border-bottom: 1px solid var(--line); }
-    .sb-row:last-child { border-bottom: none; }
-    .sb-key { flex: 0 0 8.5rem; font-family: var(--fu); font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--mute); }
-    .sb-val { flex: 1; font-size: .9375rem; font-weight: 500; color: var(--txt); }
-    .sb-val strong { font-weight: 800; }
-    .sb-val.hl { font-family: var(--fd); font-size: 1.15rem; font-weight: 900; letter-spacing: .01em; }
-    @media(max-width:460px){
-      .sb-row { flex-direction: column; gap: .2rem; }
-      .sb-key { flex: none; }
-    }
-    .ausschr-cta { display: flex; flex-direction: column; gap: 1.75rem; }
-    .ausschr-title { font-family: var(--fd); font-size: clamp(2rem,5vw,3.4rem); font-weight: 900; font-style: italic; text-transform: uppercase; line-height: 1.02; }
-    .ausschr-sub { font-size: 1rem; color: var(--mute); line-height: 1.75; }
-    .ausschr-btns { display: flex; flex-wrap: wrap; gap: .9rem; }
-
-/* ========= BRIEFING-BANNER ========= */
-    .briefing {
-      display: flex; align-items: center; gap: 1.5rem;
-      margin-top: 2.25rem; padding: 1.5rem 1.9rem;
-      background: var(--surface); border: 1px solid var(--line);
-      border-left: 4px solid var(--orange); border-radius: var(--r);
-      transition: transform .25s, border-color .25s, box-shadow .25s;
-    }
-    .briefing:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(16,20,26,.12); }
-    .briefing-body { flex: 1; min-width: 0; }
-    .briefing-label { font-family: var(--fu); font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; color: var(--orange-text); margin-bottom: .3rem; }
-    .briefing-title { font-family: var(--fu); font-size: 1.05rem; font-weight: 800; margin-bottom: .3rem; }
-    .briefing-desc { font-size: .82rem; color: var(--mute); line-height: 1.65; }
-    .briefing-arrow { flex-shrink: 0; transition: transform .25s; }
-    .briefing:hover .briefing-arrow { transform: translateX(5px); }
-    @media(max-width:620px){ .briefing { flex-wrap: wrap; } .briefing-arrow { display: none; } }
-
-/* ========= PARTNER ========= */
-    .sp-label { text-align: center; font-family: var(--fu); font-size: .6rem; font-weight: 800; text-transform: uppercase; letter-spacing: .22em; color: var(--mute); margin-bottom: 2.5rem; }
-    .sp-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 3.5rem; }
-    .sp-item { font-family: var(--fd); font-size: 1.5rem; font-weight: 800; text-transform: uppercase; color: var(--txt); opacity: .72; transition: opacity .3s; }
-    .sp-item:hover { opacity: 1; }
-
-/* ========= MOBILE ========= */
-    @media(max-width:539px){
-      .countdown { gap: .45rem; }
-      .cd-unit { min-width: 4.1rem; padding: .7rem .6rem; }
-      .hero-ctas .btn { flex: 1 1 100%; }
-      .sp-row { gap: 2rem; }
-      .disc-card { min-height: 19rem; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Erich-Fill-Triathlon Taunusstein | 16. Mai 2027</title>
+<meta name="description" content="39. Erich-Fill-Triathlon Taunusstein am 16. Mai 2027. Sprint und Olympische Distanz, Einzel und Staffel, im Freibad Taunusstein-Hahn.">
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/redesign.css">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 </head>
 <body>
 
-<a href="#main-content" class="skip-link">Zum Hauptinhalt springen</a>
+<a href="#main" class="skip">Zum Hauptinhalt springen</a>
 
-<header>
-  <nav class="navbar" aria-label="Hauptnavigation">
-    <div class="container navbar-inner">
-
-      <a href="#" class="brand" aria-label="Erich-Fill-Triathlon Taunusstein – Startseite">
-        <img src="images/eft-logo-sm.png" alt="Erich-Fill-Triathlon Taunusstein"
-             class="brand-logo" width="440" height="158" loading="eager">
-      </a>
-
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="nav-logo" aria-label="Erich-Fill-Triathlon Taunusstein – Startseite">
+      <img src="images/eft-logo-sm-dunkel.png" alt="Erich-Fill-Triathlon Taunusstein" width="440" height="158">
+    </a>
+    <nav aria-label="Hauptnavigation">
       <ul class="nav-links" role="list">
-        <li><a href="#" class="active" aria-current="page">Start</a></li>
-        <li><a href="#news">Aktuelles</a></li>
-        <li><a href="#disciplines">Wettkampf</a></li>
-        <li><a href="#athleteninfos">Athleten</a></li>
+        <li><a href="#aktuelles">Aktuelles</a></li>
+        <li><a href="#mission">Das Rennen</a></li>
+        <li><a href="#strecke">Strecke</a></li>
+        <li><a href="#formate">Formate</a></li>
+        <li><a href="#infos">Infos</a></li>
         <li><a href="#archiv">Archiv 2026</a></li>
-        <li><a href="#ausschreibung">Ausschreibung</a></li>
-        <li><a href="#sponsors">Partner</a></li>
       </ul>
-
-      <div class="nav-end">
-        <a href="https://baer-service.de/anmeldung/EFT" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="navCta">Anmeldung 2027</a>
-        <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileMenu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <span class="btn btn-pri btn-wartet" style="display:none" id="navCta">Anmeldung ab 15.11.2026</span>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mnav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-
-    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobiles Menü">
-      <a href="#" onclick="closeMobile()">Start</a>
-      <a href="#news" onclick="closeMobile()">Aktuelles</a>
-      <a href="#disciplines" onclick="closeMobile()">Wettkampf</a>
-      <a href="#athleteninfos" onclick="closeMobile()">Athleteninfos</a>
-      <a href="#archiv" onclick="closeMobile()">Archiv 2026</a>
-      <a href="#ausschreibung" onclick="closeMobile()">Ausschreibung</a>
-      <a href="#sponsors" onclick="closeMobile()">Partner</a>
-      <a href="https://baer-service.de/anmeldung/EFT" target="_blank" rel="noopener noreferrer" class="btn btn-primary" onclick="closeMobile()">Anmeldung 2027</a>
-    </div>
-  </nav>
+  </div>
+  <div class="mnav" id="mnav">
+    <a href="#aktuelles">Aktuelles</a>
+    <a href="#mission">Das Rennen</a>
+    <a href="#strecke">Strecke</a>
+    <a href="#formate">Formate</a>
+    <a href="#infos">Infos</a>
+    <a href="#archiv">Archiv 2026</a>
+    <span class="mnav-hinweis">Anmeldung ab 15.11.2026</span>
+  </div>
 </header>
 
-<main id="main-content">
+<main id="main">
 
-  <!-- ══════════ HERO ══════════ -->
-  <section class="hero" id="hero" aria-labelledby="heroH1">
-    <img class="hero-photo" src="images/hero.jpg" alt="" aria-hidden="true" loading="eager" fetchpriority="high">
-    <div class="hero-veil" aria-hidden="true"></div>
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero" id="top">
+  <div class="hero-img">
+    <img src="images/rd/hero.jpg" alt="" aria-hidden="true" fetchpriority="high" width="1600" height="1066">
+  </div>
+  <div class="hero-veil" aria-hidden="true"></div>
 
-    <div class="hero-hills" aria-hidden="true">
-      <svg viewBox="0 0 1440 300" preserveAspectRatio="xMidYMid slice">
-        <path class="h1" d="M-40,212 C180,110 340,96 520,148 C700,200 830,104 1010,92 C1180,80 1310,164 1480,138"/>
-        <path class="h2" d="M-40,258 C200,178 360,214 540,206 C740,197 860,136 1050,146 C1230,155 1330,232 1480,218"/>
-        <path class="h3" d="M-40,164 C160,74 300,52 480,86 C660,120 800,44 990,40 C1170,36 1320,112 1480,88"/>
-      </svg>
-    </div>
-
-    <div class="container">
-      <div class="hero-content">
-        <p class="hero-eyebrow">
-          <span class="eyebrow-dot" aria-hidden="true"></span>
-          39. Auflage · Sonntag, 16. Mai 2027 · Taunusstein
-        </p>
-
-        <h1 class="hero-title" id="heroH1">
-          <img src="images/eft-logo.png" alt="Erich-Fill-Triathlon Taunusstein"
-               class="hero-logo" width="1400" height="502" fetchpriority="high">
-        </h1>
-
-        <p class="hero-sub">
-          Der Klassiker im Taunus — 700&nbsp;Höhenmeter, drei Disziplinen, ein Ziel.<br>
-          <strong>Bist du bereit für die Herausforderung?</strong>
-        </p>
-
-        <div class="countdown" role="timer" aria-label="Countdown bis 16. Mai 2027">
-          <div class="cd-unit"><span class="cd-num days" id="cd-days">--</span><span class="cd-label">Tage</span></div>
-          <div class="cd-unit"><span class="cd-num" id="cd-hours">--</span><span class="cd-label">Stunden</span></div>
-          <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-label">Minuten</span></div>
-          <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-label">Sekunden</span></div>
-        </div>
-
-        <div class="hero-ctas">
-          <a href="https://baer-service.de/anmeldung/EFT" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-xl">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            Anmeldung 2027
-          </a>
-          <a href="#ausschreibung" class="btn btn-outline btn-xl">Ausschreibung &amp; Infos</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="scroll-hint" aria-hidden="true">
-      <div class="scroll-ring">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      </div>
-      Scroll
-    </div>
-  </section>
-
-  <!-- ══════════ STATS (dunkel) ══════════ -->
-  <div class="stats-bar ctx-deep has-divider" aria-label="Veranstaltungs-Kennzahlen">
-    <div class="container">
-      <div class="stats-row">
-        <div class="stat">
-          <div class="stat-num-wrap"><span class="stat-num" data-target="39">0</span><span class="stat-sfx">.</span></div>
-          <div class="stat-lbl">Auflage</div>
-        </div>
-        <div class="stats-div"></div>
-        <div class="stat">
-          <div class="stat-num-wrap"><span class="stat-num" data-target="700">0</span><span class="stat-sfx">+</span></div>
-          <div class="stat-lbl">Höhenmeter</div>
-        </div>
-        <div class="stats-div"></div>
-        <div class="stat">
-          <div class="stat-num-wrap"><span class="stat-num" data-target="40">0</span><span class="stat-sfx">&nbsp;km</span></div>
-          <div class="stat-lbl">Radstrecke</div>
-        </div>
-        <div class="stats-div"></div>
-        <div class="stat">
-          <div class="stat-num-wrap"><span class="stat-num" data-target="1989">0</span></div>
-          <div class="stat-lbl">Gegründet</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Übergang dunkel → hell -->
-    <div class="hill-divider to-light" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-        <path class="hill-fill" d="M0,74 C150,32 290,28 430,56 C580,86 680,40 820,34 C960,28 1080,70 1220,76 C1330,80 1390,54 1440,40 L1440,110 L0,110 Z"/>
-        <path class="hill-line" d="M0,90 C160,56 280,80 420,76 C580,71 680,44 840,50 C1000,56 1090,86 1250,84 C1350,83 1400,68 1440,60"/>
-      </svg>
+  <div class="wrap hero-in">
+    <p class="hero-date">Sonntag · 16. Mai 2027 · Taunusstein</p>
+    <h1>
+      <img src="images/eft-logo.png" class="hero-logo"
+           alt="Erich-Fill-Triathlon Taunusstein" width="1400" height="502" fetchpriority="high">
+    </h1>
+    <p class="hero-sub">
+      Zum <strong>39. Mal</strong> durch den Untertaunus. Zwei Distanzen,
+      das Freibad Hahn als Herzstück.
+    </p>
+    <div class="hero-cta">
+      <span class="btn btn-pri btn-wartet">Anmeldung ab 15.11.2026</span>
+      <a href="#formate" class="btn btn-out">Formate &amp; Gebühren</a>
     </div>
   </div>
 
-  <!-- ══════════ AKTUELLES (hell) ══════════ -->
-  <section class="section ctx-light has-divider" id="news" aria-labelledby="newsH2">
-    <div class="container">
-      <div class="sec-head">
-        <p class="pretitle">Neuigkeiten</p>
-        <h2 class="sec-title" id="newsH2">Aktuelles</h2>
+  <div class="wrap">
+    <div class="hero-facts">
+      <div class="fact">
+        <div class="fact-n">Sprint</div>
+        <div class="fact-d"><span>0,5 km Schwimmen</span> · <span>20 km Rad</span> · <span>5 km Lauf</span></div>
       </div>
-
-      <div class="news-grid">
-        <article class="news-card news-card-featured reveal" aria-labelledby="n0">
-          <div class="news-bar bar-volt"></div>
-          <div class="news-body">
-            <div class="news-meta">
-              <span class="news-date">September 2026</span>
-              <span class="badge badge-volt">Neu</span>
-            </div>
-            <h3 class="news-title" id="n0">Der Erich-Fill-Triathlon ist zurück</h3>
-            <p class="news-text">Nach der Ausgabe 2026 übernimmt <strong>United Teams Rhein-Ruhr e.V.</strong> die Organisation — und führt den Klassiker unter seinem angestammten Namen weiter. Die legendäre Taunus-Strecke, die Atmosphäre am Freibad Hahn und der Charakter des Rennens bleiben. Neu sind ein frischer Auftritt und ein neuer Termin: <strong>Sonntag, 16. Mai 2027</strong>. Wir sehen uns am Start.</p>
-          </div>
-        </article>
-
-        <article class="news-card reveal" aria-labelledby="n1">
-          <div class="news-bar bar-volt"></div>
-          <div class="news-body">
-            <div class="news-meta">
-              <span class="news-date">September 2026</span>
-              <span class="badge">Termin</span>
-            </div>
-            <h3 class="news-title" id="n1">Termin steht: 16.&nbsp;Mai 2027</h3>
-            <p class="news-text">Die 39. Auflage findet am Sonntag, 16. Mai 2027, im Freibad Taunusstein-Hahn statt. Termin vormerken.</p>
-          </div>
-        </article>
-
-        <article class="news-card reveal d1" aria-labelledby="n2">
-          <div class="news-bar bar-volt"></div>
-          <div class="news-body">
-            <div class="news-meta">
-              <span class="news-date">Ab sofort</span>
-              <span class="badge badge-orange">Wichtig</span>
-            </div>
-            <h3 class="news-title" id="n2">Anmeldung 2027 geöffnet</h3>
-            <p class="news-text">Startplätze für Olympische Distanz und Sprint sind freigegeben. Anmeldung über den Bär-Service — Plätze sind begrenzt.</p>
-          </div>
-        </article>
-
-        <article class="news-card reveal d2" aria-labelledby="n3">
-          <div class="news-bar"></div>
-          <div class="news-body">
-            <div class="news-meta">
-              <span class="news-date">Rückblick</span>
-              <span class="badge">Archiv</span>
-            </div>
-            <h3 class="news-title" id="n3">Ergebnisse &amp; Bilder 2026</h3>
-            <p class="news-text">Alle Ergebnisse und 113 Fotos der Ausgabe 2026 sind im Archiv abrufbar.</p>
-          </div>
-        </article>
+      <div class="fact">
+        <div class="fact-n">Olympisch</div>
+        <div class="fact-d"><span>1 km Schwimmen</span> · <span>40 km Rad</span> · <span>10 km Lauf</span></div>
       </div>
     </div>
+  </div>
+</section>
 
-    <!-- Übergang hell → dunkel -->
-    <div class="hill-divider to-dark" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-        <path class="hill-fill" d="M0,60 C160,92 300,88 460,58 C620,28 740,74 900,78 C1060,82 1180,36 1320,30 C1380,27 1420,38 1440,44 L1440,110 L0,110 Z"/>
-      </svg>
+<!-- ═══════════ MISSION ═══════════
+     Der erzaehlende Abschnitt. Alle Angaben belegt: Gruendung in den
+     80ern — bewusst kein Jahr, die Zahl der Austragungen laesst keines sicher
+     zu. Der Veranstalterwechsel stand bis zum 31.10.2026 hier; er steht
+     jetzt unter "Aktuelles", in der Ausschreibung und im Impressum. -->
+<section class="sec" id="mission">
+  <div class="wrap mission">
+    <div class="mission-img up">
+      <img src="images/rd/mission.jpg" alt="Läufer auf der Strecke des Erich-Fill-Triathlons 2026" width="1600" height="1066" loading="lazy">
     </div>
-  </section>
-
-  <!-- ══════════ DISZIPLINEN (dunkel) ══════════ -->
-  <section class="section ctx-dark" id="disciplines" aria-labelledby="discH2">
-    <div class="container">
-      <div class="sec-head">
-        <p class="pretitle">Wettkampf-Details</p>
-        <h2 class="sec-title" id="discH2">Drei Disziplinen.<br>Eine Herausforderung.</h2>
-      </div>
-
-      <div class="disc-grid">
-        <article class="disc-card reveal" aria-labelledby="swimH3">
-          <img class="disc-card-img" src="images/swim.jpg" alt="" aria-hidden="true" loading="lazy">
-          <p class="disc-idx">Disziplin 01</p>
-          <h3 class="disc-name" id="swimH3">Schwimmen</h3>
-          <p class="disc-desc">Abgesperrte 50-Meter-Bahn im beheizten Freibad Taunusstein-Hahn. Perfekte Bedingungen — Zuschauer jubeln von der Tribüne.</p>
-          <div class="disc-foot">
-            <span class="disc-foot-lbl">Distanz</span>
-            <span class="disc-foot-val">500 m / 1.000 m</span>
-          </div>
-        </article>
-
-        <article class="disc-card reveal d1" aria-labelledby="bikeH3">
-          <img class="disc-card-img" src="images/bike.jpg" alt="" aria-hidden="true" loading="lazy">
-          <p class="disc-idx">Disziplin 02</p>
-          <h3 class="disc-name" id="bikeH3">Radfahren</h3>
-          <p class="disc-desc">Die berüchtigte Taunus-Strecke. Anspruchsvolle Steigungen bis 520&nbsp;m Höhe fordern Kletterqualitäten und kluge Renneinteilung.</p>
-          <div class="disc-foot">
-            <span class="disc-foot-lbl">Höhenmeter</span>
-            <span class="disc-foot-val">~700 HM</span>
-          </div>
-        </article>
-
-        <article class="disc-card reveal d2" aria-labelledby="runH3">
-          <img class="disc-card-img" src="images/run.jpg" alt="" aria-hidden="true" loading="lazy">
-          <p class="disc-idx">Disziplin 03</p>
-          <h3 class="disc-name" id="runH3">Laufen</h3>
-          <p class="disc-desc">Abwechslungsreicher Kurs rund ums Stadion. Fanzonen und lautstarke Unterstützung tragen dich sicher ins Ziel.</p>
-          <div class="disc-foot">
-            <span class="disc-foot-lbl">Distanz</span>
-            <span class="disc-foot-val">5 km / 10 km</span>
-          </div>
-        </article>
+    <div>
+      <p class="kick up">Seit den 80er-Jahren</p>
+      <h2 class="d2 up s1">Triathlontradition<br>im Taunus.</h2>
+      <p class="body up s2">
+        Der Erich-Fill-Triathlon findet am <strong>16. Mai 2027</strong> zum
+        <strong>39. Mal</strong> statt und gehört damit zu den ältesten und
+        traditionsreichsten Triathlonveranstaltungen in Deutschland. Angeboten werden
+        zwei Formate: <strong>Sprint</strong> und <strong>Olympisch</strong>.
+      </p>
+      <p class="body up s2">
+        Geschwommen wird im beheizten Freibad von Hahn, einem Ortsteil von Taunusstein —
+        50 Meter Bahnlänge, fünf Bahnen. Die Radstrecke ist eine anspruchsvolle, landschaftlich
+        reizvolle Wendepunkt-Tour durch den Untertaunus. Die Laufstrecke führt auf Asphalt
+        und festen Forstwegen rund um das Freibad.
+      </p>
+      <div class="mission-meta up s3">
+        <span class="mono mono-b">16.05.2027</span>
+        <span class="mono">Freibad Taunusstein-Hahn</span>
+        <span class="mono">Sprint &amp; Olympisch</span>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════ ATMOSPHÄRE ══════════ -->
-  <div class="atmo" role="img" aria-label="Triathlon-Atmosphäre: Wettkampf-Tattoo mit Swim, Bike, Run Symbolen">
-    <img src="images/tattoo.jpg" alt="" loading="lazy">
-    <div class="atmo-veil" aria-hidden="true"></div>
+<!-- ═══════════ AKTUELLES ═══════════ -->
+<section class="sec" id="aktuelles">
+  <div class="wrap">
+    <!-- Der Kicker bleibt "Aktuelles": § 7 der Ausschreibung sagt zu, dass
+         der Zeitplan "unter Aktuelles" bekannt gegeben wird. -->
+    <p class="kick up">Aktuelles</p>
+    <h2 class="d2 up s1" style="margin-bottom:clamp(2rem,4vw,3rem)">Schlagzeilen.</h2>
+
+    <div class="news">
+      <article class="item up">
+        <div class="item-d">September 2026</div>
+        <div>
+          <h3 class="item-t">Neuer Veranstalter, vertraute Gesichter</h3>
+          <p class="item-b">Den Erich-Fill-Triathlon richtet 2027 erstmals
+          <strong>United Teams Rhein-Ruhr e.&nbsp;V.</strong> aus. Dahinter stehen weiterhin
+          die Menschen, die das Rennen seit Jahren mitgestalten. Termin:
+          <strong>Sonntag, 16. Mai 2027</strong>.</p>
+        </div>
+      </article>
+
+      <article class="item up">
+        <div class="item-d">15. November 2026</div>
+        <div>
+          <h3 class="item-t">Anmeldung startet am 15. November 2026</h3>
+          <p class="item-b">Ab diesem Tag ist die Anmeldung geöffnet; den Link geben wir hier bekannt.
+          Die günstigste Gebührenstufe gilt bis zum <strong>31. Januar 2027</strong>.
+          <a href="#formate">Alle Gebühren</a></p>
+        </div>
+      </article>
+
+      <article class="item up">
+        <div class="item-d">Rückblick</div>
+        <div>
+          <h3 class="item-t">113 Fotos und alle Ergebnisse von 2026</h3>
+          <p class="item-b">Der 38. Erich-Fill-Triathlon vom 13. Juni 2026 bleibt im
+          <a href="#archiv">Archiv</a> abrufbar.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ STRECKE ═══════════ -->
+<section class="dark" id="strecke">
+  <div class="wrap sec" style="padding-bottom:clamp(2rem,4vw,3rem)">
+    <p class="kick up">Die Strecken</p>
+    <h2 class="d2 up s1">Schwimmen.<br>Radfahren.<br>Laufen.</h2>
   </div>
 
-  <!-- ══════════ ATHLETENINFOS (weiß) ══════════ -->
-  <section class="section ctx-light has-divider" id="athleteninfos" aria-labelledby="infoH2">
-    <div class="container">
-      <div class="sec-head">
-        <p class="pretitle">Für Teilnehmer</p>
-        <h2 class="sec-title" id="infoH2">Was Athleten<br>wissen müssen.</h2>
+  <!-- Inhalte aus dem Race Briefing 2026 uebernommen, nicht ausgedacht. -->
+  <div class="disz">
+    <article class="disz-card">
+      <img src="images/rd/swim.jpg" alt="Schwimmerin im Sportbecken des Freibades Taunusstein-Hahn" width="1600" height="1066" loading="lazy">
+      <div class="disz-body">
+        <span class="disz-no">01</span>
+        <h3 class="disz-name">Schwimmen</h3>
+        <p class="disz-meta">500 m &nbsp;·&nbsp; 1.000 m</p>
+        <p class="disz-txt">50-Meter-Sportbecken, fünf Bahnen, beheiztes Wasser. Wasserstart,
+        höchstens zwölf Starter je Bahn.</p>
       </div>
+    </article>
 
-      <div class="info-grid">
-        <div class="info-card reveal" aria-labelledby="i1">
-          <h3 class="info-title" id="i1">Zeitplan</h3>
-          <p class="info-text">Startunterlagenausgabe ab 07:00 Uhr. Wechselzone öffnet 07:30 Uhr, schließt 08:45 Uhr.</p>
-          <div class="info-detail">Start Olympisch 09:00 · Sprint 09:30</div>
+    <article class="disz-card">
+      <img src="images/rd/bike.jpg" alt="Triathletin in Aeroposition auf der gesperrten Radstrecke" width="1600" height="1066" loading="lazy">
+      <div class="disz-body">
+        <span class="disz-no">02</span>
+        <h3 class="disz-name">Radfahren</h3>
+        <p class="disz-meta">20 km &nbsp;·&nbsp; 40 km</p>
+        <p class="disz-txt">Wendepunktstrecke über Hahner Weg, Watzhahn und Borner Straße —
+        und dabei rund 700 Höhenmeter.</p>
+      </div>
+    </article>
+
+    <article class="disz-card">
+      <img src="images/rd/run.jpg" alt="Läuferin mit Startnummer auf der Laufstrecke" width="1600" height="1066" loading="lazy">
+      <div class="disz-body">
+        <span class="disz-no">03</span>
+        <h3 class="disz-name">Laufen</h3>
+        <p class="disz-meta">5 km &nbsp;·&nbsp; 10 km</p>
+        <p class="disz-txt">Rundstrecke direkt am Freibad, zwei bis vier Runden. Verpflegung mit
+        Wasser und Isogetränk auf der Strecke.</p>
+      </div>
+    </article>
+  </div>
+
+  <!-- Die Karten liegen im Race Briefing 2026. Fuer 2027 wird es aktualisiert;
+       die Streckenfuehrung bleibt unveraendert (vom Veranstalter bestaetigt). -->
+  <div class="wrap" style="padding-block:clamp(1.6rem,3vw,2.4rem)">
+    <div class="links up">
+      <a class="lnk" href="briefing-2026.html#karten"><span>Streckenkarten ansehen</span><span>→</span></a>
+      <a class="lnk" href="briefing-2026.html#rennfakten"><span>Rennfakten im Briefing</span><span>→</span></a>
+    </div>
+  </div>
+
+  <div class="wrap" style="padding-block:clamp(2.5rem,5vw,4rem)">
+    <div class="note up">
+      <p class="note-l">Radstrecke</p>
+      <p class="note-t"><strong>Voll gesperrt</strong> für den Individualverkehr.
+      Die Einzelheiten zu Verkehrssicherung und Wettkampfregeln stehen in der
+      <a href="ausschreibung-2027.html#teil-a">Ausschreibung</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FORMATE & GEBÜHREN ═══════════ -->
+<section class="sec" id="formate">
+  <div class="wrap">
+    <p class="kick up">Wettkampfformate</p>
+    <h2 class="d2 up s1" style="margin-bottom:1.4rem">Zwei Distanzen.<br>Einzel oder Staffel.</h2>
+    <p class="lead up s2" style="margin-bottom:clamp(2.2rem,4.5vw,3.4rem)">
+      Wer die ganze Strecke nicht allein gehen will, startet als Staffel — zu dritt,
+      jeder seine Disziplin.
+    </p>
+
+    <div class="fmt">
+      <article class="fmt-card up">
+        <div class="fmt-head">
+          <h3 class="fmt-name">Sprint</h3>
         </div>
+        <p class="fmt-dist">0,5 km Schwimmen · 20 km Rad · 5 km Laufen</p>
+        <table class="tbl">
+          <caption>Organisationsgebühr</caption>
+          <thead><tr><th scope="col">Anmeldung bis</th><th scope="col">Einzel</th><th scope="col">Staffel</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">31.01.2027</th><td>60 €</td><td>70 €</td></tr>
+            <tr><th scope="row">31.03.2027</th><td>70 €</td><td>80 €</td></tr>
+            <tr><th scope="row">02.05.2027</th><td>80 €</td><td>90 €</td></tr>
+          </tbody>
+        </table>
+        <p class="fmt-note">Offen für alle ab Jugend&nbsp;A (AK&nbsp;16–17). Die jüngsten
+        Jahrgänge dürfen ausschließlich hier starten und werden separat gewertet.</p>
+      </article>
 
-        <div class="info-card reveal d1" aria-labelledby="i2">
-          <h3 class="info-title" id="i2">Wechselzone</h3>
-          <p class="info-text">Im Freibad Taunusstein-Hahn. Fahrrad inkl. Helm platzieren. Wechselzone schließt 30 Min. vor Start.</p>
-          <div class="info-detail">Am Freibad · 65232 Taunusstein-Hahn</div>
+      <article class="fmt-card up s1">
+        <div class="fmt-head">
+          <h3 class="fmt-name">Olympisch</h3>
         </div>
-
-        <div class="info-card reveal d2" aria-labelledby="i3">
-          <h3 class="info-title" id="i3">Startunterlagen</h3>
-          <p class="info-text">Ausgabe nur am Renntag ab 07:00 Uhr vor Ort — kein Versand. Lichtbildausweis und Bestätigung mitbringen.</p>
-          <div class="info-detail">Nur vor Ort · Kein Versand</div>
-        </div>
-
-        <div class="info-card reveal d1" aria-labelledby="i4">
-          <h3 class="info-title" id="i4">Anreise &amp; Parken</h3>
-          <p class="info-text">Kostenlose Parkplätze am Stadion Taunusstein. Frühzeitige Anreise empfohlen — Kapazitäten begrenzt.</p>
-          <div class="info-detail">Parkplatz: Stadion Taunusstein-Hahn</div>
-        </div>
-
-        <div class="info-card reveal d2" aria-labelledby="i5">
-          <h3 class="info-title" id="i5">Verpflegung</h3>
-          <p class="info-text">Verpflegung auf der Radstrecke bei km&nbsp;20 sowie auf der Laufstrecke bei km&nbsp;2,5 und im Zielbereich.</p>
-          <div class="info-detail">Wasser · Elektrolyte · Riegel</div>
-        </div>
-
-        <div class="info-card reveal d3" aria-labelledby="i6">
-          <h3 class="info-title" id="i6">Zeitlimit</h3>
-          <p class="info-text">Olympisch: 6 Std. Gesamtzeitlimit. Sprint: 3 Std. Chip-Zeitmessung nach offiziellen DTU-Regeln.</p>
-          <div class="info-detail">Chip-Messung · Offizielle DTU-Regeln</div>
-        </div>
-      </div>
+        <p class="fmt-dist">1 km Schwimmen · 40 km Rad · 10 km Laufen</p>
+        <table class="tbl">
+          <caption>Organisationsgebühr</caption>
+          <thead><tr><th scope="col">Anmeldung bis</th><th scope="col">Einzel</th><th scope="col">Staffel</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">31.01.2027</th><td>70 €</td><td>80 €</td></tr>
+            <tr><th scope="row">31.03.2027</th><td>80 €</td><td>90 €</td></tr>
+            <tr><th scope="row">02.05.2027</th><td>90 €</td><td>100 €</td></tr>
+          </tbody>
+        </table>
+        <p class="fmt-note">Hier ist ein gültiger DTU-Startpass Pflicht — oder eine Tageslizenz
+        für 20&nbsp;€ in bar. Mindestalter AK&nbsp;18.</p>
+      </article>
     </div>
 
-    <!-- Übergang Off-White → Weiß -->
-    <div class="hill-divider to-white" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-        <path class="hill-fill" d="M0,52 C140,86 280,94 440,66 C600,38 720,80 880,82 C1040,84 1170,40 1310,34 C1375,31 1418,42 1440,48 L1440,110 L0,110 Z"/>
-      </svg>
-    </div>
-  </section>
-
-  <!-- ══════════ ARCHIV 2026 (weiß) ══════════ -->
-  <section class="section ctx-white has-divider" id="archiv" aria-labelledby="arcH2">
-    <div class="container">
-      <div class="sec-head">
-        <p class="pretitle">Rückblick</p>
-        <h2 class="sec-title" id="arcH2">Archiv <span class="volt">2026</span></h2>
-        <p class="sec-sub">Die Ausgabe 2026 ist gelaufen. Ergebnisse, Bilder und das Race Briefing bleiben hier dauerhaft abrufbar.</p>
-      </div>
-
-      <div class="arc-grid">
-        <!-- TODO: Link zur Ergebnisliste 2026 eintragen (steht aktuell auf #) -->
-        <a href="#" class="arc-card reveal" aria-label="Ergebnisse 2026 ansehen">
-          <span class="arc-kicker">Ergebnisse</span>
-          <span class="arc-title">Ergebnisse 2026</span>
-          <span class="arc-text">Alle Platzierungen und Zeiten der Olympischen Distanz und des Sprints, offiziell per Chip gemessen.</span>
-          <span class="arc-more">
-            Zur Ergebnisliste
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-
-        <a href="galerie.html" class="arc-card reveal d1" aria-label="Alle 113 Bilder von 2026 ansehen">
-          <span class="arc-kicker">Bilder</span>
-          <span class="arc-title">113 Fotos</span>
-          <span class="arc-text">Impressionen vom Wettkampftag 2026 — Start, Wechselzone, Taunus-Anstiege und Zieleinlauf.</span>
-          <span class="arc-more">
-            Zur Galerie
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-
-        <a href="briefing-2026.html" class="arc-card reveal d2" aria-label="Race Briefing 2026 öffnen">
-          <span class="arc-kicker">Dokument</span>
-          <span class="arc-title">Race Briefing</span>
-          <span class="arc-text">Das vollständige Wettkampf-Briefing von 2026 mit Strecken, Zeitplänen und Regeln.</span>
-          <span class="arc-more">
-            Briefing öffnen
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </span>
-        </a>
-      </div>
+    <div class="note up" style="margin-top:clamp(2rem,4vw,3rem)">
+      <p class="note-l">Gebühren und Fristen</p>
+      <p class="note-t">Zwischen der ersten und der letzten Gebührenstufe liegen
+      <strong>20&nbsp;€</strong>. Online-Anmeldeschluss ist der
+      <strong>2. Mai 2027, 23:59 Uhr</strong> — Nachmeldungen am Wettkampftag gibt es nicht.
+      Die Zahl der Startplätze ist begrenzt, für beide Formate gleichermaßen. Ein Wechsel des
+      Formats nach der Anmeldung ist nicht möglich.</p>
     </div>
 
-    <!-- Übergang weiß → dunkel -->
-    <div class="hill-divider to-dark" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-        <path class="hill-fill" d="M0,58 C150,92 300,90 460,60 C620,30 740,76 900,80 C1060,84 1180,38 1320,32 C1380,29 1420,40 1440,46 L1440,110 L0,110 Z"/>
-      </svg>
+    <!-- Wertung, Altersklassen und Preisgelder standen bis zum 31.10.2026 als
+         eigener Abschnitt hier. Sie stehen vollstaendig in der Ausschreibung —
+         auf der Startseite genuegt der Verweis. -->
+    <div class="links up" style="margin-top:clamp(1.6rem,3vw,2.2rem)">
+      <a class="lnk" href="ausschreibung-2027.html#wertungen"><span>Wertungen und Preisgelder</span><span>→</span></a>
+      <a class="lnk" href="ausschreibung-2027.html#teil-a"><span>Ausschreibung</span><span>→</span></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════ GALERIE (dunkel) ══════════ -->
-  <section class="section ctx-dark has-divider" id="galerie" aria-labelledby="galH2">
-    <div class="container">
-      <div class="sec-head">
-        <p class="pretitle">Impressionen</p>
-        <h2 class="sec-title" id="galH2">Bilder 2026</h2>
-      </div>
+<!-- ═══════════ INFOS ═══════════ -->
+<section class="sec deep dark" id="infos">
+  <div class="wrap">
+    <p class="kick up">Zum Nachlesen</p>
+    <h2 class="d2 up s1" style="margin-bottom:1.3rem">Alles, was<br>du brauchst.</h2>
+    <p class="lead up s2">
+      Von der Ausschreibung über die Teilnahmebedingungen bis zu den Ergebnissen von 2026 —
+      hier liegt alles. Der Zeitplan für 2027 wird rechtzeitig vor dem Wettkampf
+      unter „Aktuelles“ bekannt gegeben.
+    </p>
 
-      <div class="gallery-grid">
-        <a href="images/gal1.jpg" class="gal-item reveal" aria-label="Athletin überquert das Ziel mit erhobenen Armen">
-          <img src="images/gal1.jpg" alt="Athletin überquert jubilierend die Ziellinie" loading="lazy">
-        </a>
-        <a href="images/gal2.jpg" class="gal-item reveal d1" aria-label="Schwimmer steigt aus dem Wasser">
-          <img src="images/gal2.jpg" alt="Schwimmer steigt nach dem Freibad-Start aus dem Wasser" loading="lazy">
-        </a>
-        <a href="images/gal3.jpg" class="gal-item reveal d2" aria-label="Läufer Nikolas lächelnd auf der Strecke">
-          <img src="images/gal3.jpg" alt="Läufer Nikolas lächelt auf der Laufstrecke" loading="lazy">
-        </a>
-        <a href="images/gal4.jpg" class="gal-item reveal d1" aria-label="Zwei Athleten nach dem Schwimmen">
-          <img src="images/gal4.jpg" alt="Zwei Athleten lachen gemeinsam nach dem Schwimmen" loading="lazy">
-        </a>
-        <a href="images/gal5.jpg" class="gal-item reveal d2" aria-label="Athleten von hinten mit Motivation auf dem Trikot">
-          <img src="images/gal5.jpg" alt="Zwei Athleten von hinten, Trikot mit Nappo-Aufschrift Beiss dich durch" loading="lazy">
-        </a>
-        <a href="images/gal6.jpg" class="gal-item reveal d3" aria-label="Athleten beim Start vor dem Wettkampf">
-          <img src="images/gal6.jpg" alt="Athleten sammeln sich konzentriert vor dem Startschuss" loading="lazy">
-        </a>
-      </div>
-
-      <div style="text-align:center;margin-top:2.5rem;">
-        <a href="galerie.html" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          Alle 113 Fotos ansehen
-        </a>
-      </div>
+    <div class="links">
+      <span class="lnk lnk-wartet"><span>Anmeldung ab 15.11.2026</span><span>·</span></span>
+      <a class="lnk" href="ausschreibung-2027.html#teil-a"><span>Ausschreibung</span><span>→</span></a>
+      <a class="lnk" href="ausschreibung-2027.html#teil-b"><span>Teilnahmebedingungen</span><span>→</span></a>
+      <a class="lnk" href="impressum.html"><span>Kontakt</span><span>→</span></a>
     </div>
+  </div>
+</section>
 
-    <!-- Übergang dunkel → hell -->
-    <div class="hill-divider to-light" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-        <path class="hill-fill" d="M0,70 C150,30 300,26 450,58 C600,90 720,44 880,38 C1040,32 1170,76 1310,80 C1375,82 1418,66 1440,58 L1440,110 L0,110 Z"/>
-        <path class="hill-line" d="M0,88 C160,54 290,78 440,74 C600,69 710,42 870,48 C1030,54 1150,88 1300,86 C1370,85 1412,72 1440,64"/>
-      </svg>
+<!-- ═══════════ ARCHIV 2026 ═══════════ -->
+<section class="sec" id="archiv" style="background:var(--sand-2)">
+  <div class="wrap">
+    <p class="kick up">Rückblick</p>
+    <h2 class="d2 up s1" style="margin-bottom:1.2rem">Archiv 2026</h2>
+    <p class="lead up s2" style="margin-bottom:clamp(1.8rem,3.5vw,2.6rem)">
+      Der 38. Erich-Fill-Triathlon am 13. Juni 2026. Ergebnisse, Bilder und das Race Briefing bleiben
+      dauerhaft abrufbar.
+    </p>
+  </div>
+
+  <div class="wrap">
+    <div class="gal up">
+      <a href="galerie.html" aria-label="Zur Galerie 2026"><img src="images/gal1.jpg" alt="Impression vom Erich-Fill-Triathlon 2026" loading="lazy" width="900" height="600"></a>
+      <a href="galerie.html" aria-label="Zur Galerie 2026"><img src="images/gal2.jpg" alt="Impression vom Erich-Fill-Triathlon 2026" loading="lazy" width="900" height="600"></a>
+      <a href="galerie.html" aria-label="Zur Galerie 2026"><img src="images/gal3.jpg" alt="Impression vom Erich-Fill-Triathlon 2026" loading="lazy" width="900" height="600"></a>
+      <a href="galerie.html" aria-label="Zur Galerie 2026"><img src="images/gal4.jpg" alt="Impression vom Erich-Fill-Triathlon 2026" loading="lazy" width="900" height="600"></a>
     </div>
-  </section>
-
-  <!-- ══════════ AUSSCHREIBUNG (hell) ══════════ -->
-  <section class="section ctx-light" id="ausschreibung" aria-labelledby="ausH2">
-    <div class="container">
-      <div class="ausschr-grid">
-
-        <div class="steckbrief reveal">
-          <div class="sb-head">Renn-Steckbrief 2027</div>
-          <div>
-            <div class="sb-row"><span class="sb-key">Datum</span><span class="sb-val hl">Sonntag, 16. Mai 2027</span></div>
-            <div class="sb-row"><span class="sb-key">Ort</span><span class="sb-val">Freibad Taunusstein-Hahn, 65232</span></div>
-            <div class="sb-row"><span class="sb-key">Veranstalter</span><span class="sb-val">United Teams Rhein-Ruhr e.V.</span></div>
-            <div class="sb-row"><span class="sb-key">Kategorien</span><span class="sb-val"><strong>Olympisch</strong> &amp; Sprint</span></div>
-            <div class="sb-row"><span class="sb-key">Olympisch</span><span class="sb-val"><strong>1.000 m · 40 km · 10 km</strong></span></div>
-            <div class="sb-row"><span class="sb-key">Sprint</span><span class="sb-val">500 m · 20 km · 5 km</span></div>
-            <div class="sb-row"><span class="sb-key">Höhenmeter</span><span class="sb-val"><strong>~700 HM</strong> (Olympisch)</span></div>
-            <div class="sb-row"><span class="sb-key">Anm.schluss</span><span class="sb-val">2. Mai 2027</span></div>
-            <div class="sb-row"><span class="sb-key">Anmeldung</span><span class="sb-val">via Bär-Service (Online)</span></div>
-          </div>
-        </div>
-
-        <div class="ausschr-cta reveal d2">
-          <div>
-            <p class="pretitle" style="margin-bottom:.75rem">Alle Infos auf einen Blick</p>
-            <h2 class="ausschr-title" id="ausH2">Ausschreibung<br><span style="color:var(--orange-text)">2027</span></h2>
-          </div>
-          <p class="ausschr-sub">
-            Die vollständige Ausschreibung enthält alle offiziellen Regeln, Teilnahmebedingungen, Startgelder und Fristen — im Browser lesbar und über die Druckfunktion als PDF zu sichern.
-          </p>
-          <div class="ausschr-btns">
-            <a href="ausschreibung-2027.html" class="btn btn-dark btn-lg">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Ausschreibung ansehen
-            </a>
-            <a href="https://baer-service.de/anmeldung/EFT" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              Anmeldung 2027
-            </a>
-          </div>
-
-          <a href="briefing-2026.html" class="briefing" aria-label="Race Briefing 2026 öffnen">
-            <div class="briefing-body">
-              <p class="briefing-label">Archiv · Race Briefing 2026</p>
-              <p class="briefing-title">Briefing der Vorjahresausgabe</p>
-              <p class="briefing-desc">Strecken, Zeitpläne, Wechselzone und Regeln von 2026 — als Orientierung bis das Briefing 2027 erscheint.</p>
-            </div>
-            <div class="briefing-arrow" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </div>
-          </a>
-        </div>
-
-      </div>
+    <div class="links" style="margin-top:1.2rem">
+      <a class="lnk" href="galerie.html"><span>Alle 113 Fotos</span><span>→</span></a>
+      <a class="lnk" href="briefing-2026.html"><span>Race Briefing 2026</span><span>→</span></a>
+      <a class="lnk" href="#top"><span>Nach oben</span><span>↑</span></a>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ══════════ PARTNER (weiß) ══════════ -->
-  <section class="section ctx-white has-divider" id="sponsors" aria-label="Unsere Partner" style="padding-top:4rem">
-    <div class="container">
-      <p class="sp-label">Starke Partner des Erich-Fill-Triathlons</p>
-      <div class="sp-row">
-        <span class="sp-item">Naspa Sparkasse</span>
-        <span class="sp-item">sebamed<sup style="font-size:.6em">®</sup></span>
-        <span class="sp-item">United Teams Rhein-Ruhr</span>
-      </div>
+<!-- ═══════════ PARTNER ═══════════ -->
+<section class="sec" id="partner" style="padding-block:clamp(3.5rem,7vw,6rem)">
+  <div class="wrap" style="text-align:center">
+    <p class="mono up" style="margin-bottom:1.8rem">Unser Partner</p>
+    <div class="sponsors up s1">
+      <a class="sp-logo" href="https://www.naspa.de" target="_blank" rel="noopener noreferrer">
+        <img src="images/partner/naspa.jpg" alt="Naspa — Nassauische Sparkasse"
+             width="900" height="412" loading="lazy">
+      </a>
     </div>
-
-    <!-- Übergang weiß → Footer -->
-    <div class="hill-divider to-deep" aria-hidden="true">
-      <svg viewBox="0 0 1440 110" preserveAspectRatio="none">
-        <path class="hill-fill" d="M0,58 C150,90 300,92 450,62 C600,32 730,76 890,80 C1050,84 1180,38 1320,32 C1380,29 1420,40 1440,46 L1440,110 L0,110 Z"/>
-      </svg>
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
-<!-- ══════════ FOOTER ══════════ -->
-<footer class="footer ctx-deep">
-  <div class="footer-hills" aria-hidden="true">
-    <svg viewBox="0 0 1440 180" preserveAspectRatio="none">
-      <path d="M-20,120 C180,44 340,30 520,76 C700,122 830,36 1010,26 C1190,16 1320,98 1460,72"/>
-      <path d="M-20,158 C200,96 360,126 540,120 C740,113 860,58 1050,66 C1230,74 1330,142 1460,130"/>
-    </svg>
-  </div>
-
-  <div class="container">
-    <div class="footer-inner">
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
       <div>
-        <div class="brand">
-          <img src="images/eft-logo-sm.png" alt="Erich-Fill-Triathlon Taunusstein"
-               class="brand-logo" width="440" height="158" loading="lazy">
-        </div>
-        <p class="footer-meta">
-          <span class="date">Sonntag, 16. Mai 2027</span><br>
+        <h3>Erich-Fill-Triathlon</h3>
+        <p class="foot-adr">
+          <span class="hl">Sonntag, 16. Mai 2027</span><br>
           Freibad Taunusstein-Hahn<br>
-          65232 Taunusstein
+          Zum Schwimmbad, 65232 Taunusstein
         </p>
+        <span class="utrr">
+          <span class="utrr-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span style="font-size:.8rem">Veranstalter: United Teams Rhein-Ruhr e.&nbsp;V.</span>
+        </span>
       </div>
-
       <div>
-        <p class="footer-h">Veranstaltung</p>
-        <ul class="footer-list" role="list">
-          <li><a href="#disciplines">Wettkampf</a></li>
-          <li><a href="#athleteninfos">Athleteninfos</a></li>
-          <li><a href="#ausschreibung">Ausschreibung</a></li>
-          <li><a href="#archiv">Archiv 2026</a></li>
-          <li><a href="https://baer-service.de/anmeldung/EFT" target="_blank" rel="noopener noreferrer">Anmeldung 2027</a></li>
+        <h3>Veranstaltung</h3>
+        <ul role="list">
+          <li><a href="#strecke">Strecke</a></li>
+          <li><a href="#formate">Formate &amp; Gebühren</a></li>
+          <li><a href="ausschreibung-2027.html#wertungen">Wertungen</a></li>
+          <li><a href="ausschreibung-2027.html">Ausschreibung</a></li>
+          <li><span class="foot-wartet">Anmeldung ab 15.11.2026</span></li>
         </ul>
       </div>
-
       <div>
-        <p class="footer-h">Kontakt &amp; Rechtliches</p>
-        <ul class="footer-list" role="list">
+        <h3>Kontakt &amp; Rechtliches</h3>
+        <ul role="list">
           <li><a href="impressum.html">Kontakt</a></li>
           <li><a href="impressum.html">Impressum</a></li>
           <li><a href="datenschutz.html">Datenschutz</a></li>
-          <li><a href="ausschreibung-2027.html">Teilnahmebedingungen</a></li>
+          <li><a href="ausschreibung-2027.html#teil-b">Teilnahmebedingungen</a></li>
         </ul>
       </div>
     </div>
-
-    <div class="footer-bottom">
-      <span>© 2026 Erich-Fill-Triathlon Taunusstein</span>
-      <span class="veranstalter">
-        Veranstalter:
-        <span class="utrr-org">
-          <span class="utrr-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
-          United Teams Rhein-Ruhr e.V.
-        </span>
-      </span>
+    <div class="foot-end">
+      <span>© 2026 United Teams Rhein-Ruhr e.&nbsp;V.</span>
+      <span>Fotos: Kathrin Horn</span>
     </div>
   </div>
 </footer>
 
-<!-- ══════════ LIGHTBOX ══════════ -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Bild-Vollansicht">
-  <div class="lightbox-inner" id="lightboxInner">
-    <img src="" alt="" id="lightboxImg">
-  </div>
-  <button class="lightbox-close" id="lightboxClose" aria-label="Schließen">&#x2715;</button>
-  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Vorheriges Bild">&#x2039;</button>
-  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Nächstes Bild">&#x203A;</button>
-</div>
-
+<script src="assets/anmeldung.js"></script>
 <script>
-  // Mobile menu
-  const hamburger  = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    const open = mobileMenu.classList.toggle('open');
-    hamburger.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', String(open));
+(function () {
+  "use strict";
+
+  // Mobilmenue
+  var burger = document.getElementById("burger");
+  var mnav = document.getElementById("mnav");
+  burger.addEventListener("click", function () {
+    var open = mnav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
   });
-  function closeMobile() {
-    mobileMenu.classList.remove('open');
-    hamburger.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
+  mnav.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") {
+      mnav.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Anmelde-Button in der Leiste erst einblenden, wenn der Hero durch ist —
+  // oben steht er ohnehin gross im Bild.
+  var cta = document.getElementById("navCta");
+  var hero = document.getElementById("top");
+  if (window.IntersectionObserver && cta && hero) {
+    new IntersectionObserver(function (entries) {
+      cta.style.display = entries[0].isIntersecting ? "none" : "inline-flex";
+    }, { threshold: 0.25 }).observe(hero);
   }
 
-  // Nav-CTA einblenden, sobald der Hero weggescrollt ist
-  const navCta = document.getElementById('navCta');
-  new IntersectionObserver(([e]) => {
-    navCta.style.display = e.isIntersecting ? 'none' : 'inline-flex';
-  }, { threshold: 0.05 }).observe(document.getElementById('hero'));
-
-  // Countdown — 16. Mai 2027
-  const EVENT = new Date('2027-05-16T09:00:00+02:00');
-  function setNum(id, val) {
-    const el = document.getElementById(id);
-    const s = String(val).padStart(2, '0');
-    if (el.textContent !== s) {
-      el.textContent = s;
-      el.classList.remove('flip');
-      void el.offsetWidth;
-      el.classList.add('flip');
-    }
+  // Einblenden beim Scrollen. Bewusst sparsam: eine Bewegung, kurz,
+  // und nur einmal je Element.
+  var ups = document.querySelectorAll(".up");
+  if (!window.IntersectionObserver) {
+    ups.forEach(function (el) { el.classList.add("in"); });
+    return;
   }
-  function tick() {
-    const ms = EVENT - Date.now();
-    if (ms <= 0) { ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => setNum(id, 0)); return; }
-    setNum('cd-days',  Math.floor(ms / 86400000));
-    setNum('cd-hours', Math.floor((ms % 86400000) / 3600000));
-    setNum('cd-mins',  Math.floor((ms % 3600000) / 60000));
-    setNum('cd-secs',  Math.floor((ms % 60000) / 1000));
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  // Scroll-Reveal
-  const revealObs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-
-  // Zähler in der Stats-Bar
-  function animateCounter(el, target, duration) {
-    const start = performance.now();
-    const update = now => {
-      const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.round(target * eased);
-      if (p < 1) requestAnimationFrame(update);
-    };
-    requestAnimationFrame(update);
-  }
-  const statsBar = document.querySelector('.stats-bar');
-  let statsAnimated = false;
-  new IntersectionObserver(([e]) => {
-    if (e.isIntersecting && !statsAnimated) {
-      statsAnimated = true;
-      document.querySelectorAll('.stat-num[data-target]').forEach(el => {
-        animateCounter(el, parseInt(el.dataset.target), 1200);
-      });
-    }
-  }, { threshold: 0.4 }).observe(statsBar);
-
-  // Lightbox
-  (function(){
-    var lb    = document.getElementById('lightbox');
-    var lbImg = document.getElementById('lightboxImg');
-    var items = Array.from(document.querySelectorAll('.gal-item'));
-    var current = 0;
-
-    function openAt(idx) {
-      current = (idx + items.length) % items.length;
-      var img = items[current].querySelector('img');
-      lbImg.src = img.src;
-      lbImg.alt = img.alt;
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      document.getElementById('lightboxClose').focus();
-    }
-    function close() {
-      lb.classList.remove('open');
-      document.body.style.overflow = '';
-      lbImg.src = '';
-      items[current].focus();
-    }
-
-    items.forEach(function(item, idx) {
-      item.addEventListener('click', function(e) { e.preventDefault(); openAt(idx); });
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); obs.unobserve(en.target); }
     });
-    document.getElementById('lightboxClose').addEventListener('click', close);
-    document.getElementById('lightboxPrev').addEventListener('click', function(){ openAt(current - 1); });
-    document.getElementById('lightboxNext').addEventListener('click', function(){ openAt(current + 1); });
-    lb.addEventListener('click', function(e){ if (e.target === lb) close(); });
-    document.addEventListener('keydown', function(e) {
-      if (!lb.classList.contains('open')) return;
-      if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft')  { e.preventDefault(); openAt(current - 1); }
-      if (e.key === 'ArrowRight') { e.preventDefault(); openAt(current + 1); }
-    });
-  })();
+  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  ups.forEach(function (el) { obs.observe(el); });
+})();
 </script>
 
 </body>

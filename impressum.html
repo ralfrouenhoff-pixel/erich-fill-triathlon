@@ -8,65 +8,65 @@
   <meta name="robots" content="index, follow">
 
   <link rel="stylesheet" href="assets/fonts.css">
-  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/redesign.css">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/images/icon-192.png">
+  <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
   <style>
-    .doc-hero { background: var(--navy); color: var(--t-dark); padding: 3.5rem 0 3rem; }
-    .doc-kicker {
-      font-family: var(--fu); font-size: .6875rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .18em; color: var(--blue-light);
-      margin-bottom: .7rem;
-    }
-    .doc-title {
-      font-family: var(--fd); font-style: italic; font-weight: 900;
-      font-size: clamp(2.2rem, 6vw, 3.8rem); line-height: 1;
-      text-transform: uppercase; color: var(--off);
-    }
-    /* Anschrift-Bloecke: Zeilenumbrueche erhalten */
-    .adr { font-style: normal; line-height: 1.7; }
-    @media(max-width:1039px){
-      .navbar-inner { flex-wrap: wrap; height: auto; padding-block: .75rem; gap: .75rem; }
-    }
+    .adr { font-style: normal; line-height: 1.75; }
   </style>
 </head>
 <body>
 
-<header>
-  <nav class="navbar" aria-label="Hauptnavigation">
-    <div class="container navbar-inner">
-      <a href="index.html" class="brand" aria-label="Erich-Fill-Triathlon Taunusstein — zur Startseite">
-        <img src="images/eft-logo-sm.png" alt="Erich-Fill-Triathlon Taunusstein"
-             class="brand-logo" width="440" height="158" loading="eager">
-      </a>
-      <div class="nav-end">
-        <a href="index.html" class="btn btn-outline" style="padding:.55rem 1.2rem;font-size:.75rem">Zur Website</a>
-      </div>
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="index.html" class="nav-logo" aria-label="Erich-Fill-Triathlon Taunusstein – Startseite">
+      <img src="images/eft-logo-sm-dunkel.png" alt="Erich-Fill-Triathlon Taunusstein" width="440" height="158">
+    </a>
+    <nav aria-label="Hauptnavigation">
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#aktuelles">Aktuelles</a></li>
+        <li><a href="index.html#mission">Das Rennen</a></li>
+        <li><a href="index.html#strecke">Strecke</a></li>
+        <li><a href="index.html#formate">Formate</a></li>
+        <li><a href="index.html#infos">Infos</a></li>
+        <li><a href="index.html#archiv">Archiv 2026</a></li>
+      </ul>
+    </nav>
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <span class="btn btn-pri btn-wartet" style="display:none" id="navCta">Anmeldung ab 15.11.2026</span>
+      <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mnav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-  </nav>
+  </div>
+  <div class="mnav" id="mnav">
+    <a href="index.html#aktuelles">Aktuelles</a>
+    <a href="index.html#mission">Das Rennen</a>
+    <a href="index.html#strecke">Strecke</a>
+    <a href="index.html#formate">Formate</a>
+    <a href="index.html#infos">Infos</a>
+    <a href="index.html#archiv">Archiv 2026</a>
+    <span class="mnav-hinweis">Anmeldung ab 15.11.2026</span>
+  </div>
 </header>
 
 <main>
   <section class="doc-hero">
-    <div class="container">
-      <p class="doc-kicker">Anbieterkennzeichnung</p>
+    <div class="wrap">
+      <p class="kick">Anbieterkennzeichnung</p>
       <h1 class="doc-title">Impressum</h1>
     </div>
   </section>
 
   <section class="doc">
-    <div class="container">
+    <div class="wrap">
 
       <div class="print-only print-head">
         <div class="pm">Impressum</div>
         <div class="ps">Erich-Fill-Triathlon Taunusstein</div>
-      </div>
-
-      <div class="todo">
-        <b>Dieses Impressum ist noch unvollständig</b>
-        Die unten orange markierten Angaben fehlen und müssen ergänzt werden, bevor die Seite
-        unter der eigenen Domain öffentlich geht. Ein unvollständiges Impressum ist in Deutschland
-        abmahnfähig. Bitte lass den fertigen Text vor der Veröffentlichung einmal rechtlich prüfen —
-        ich kann das nicht leisten.
       </div>
 
       <div class="doc-block">
@@ -76,49 +76,25 @@
           Am Kirchhof 8b<br>
           45289 Essen
         </p>
-        <div class="todo">
-          <b>Postleitzahl prüfen</b>
-          Die bisherige Website nennt im oberen Block <strong>452989 Essen</strong> — das sind sechs
-          Ziffern und damit keine gültige Postleitzahl. Weiter unten steht dort korrekt
-          <strong>45289</strong>. Hier ist die fünfstellige Fassung übernommen. Bitte bestätigen.
-        </div>
 
         <h3>Vertreten durch</h3>
-        <p>Ralf Rouenhoff</p>
-        <div class="todo">
-          <b>Vollständigkeit prüfen</b>
-          Falls der Vorstand aus mehreren vertretungsberechtigten Personen besteht, gehören alle
-          hierher — so wie sie im Vereinsregister eingetragen sind.
-        </div>
+        <p class="adr">
+          Ralf Rouenhoff
+        </p>
 
         <h3>Registereintrag</h3>
-        <div class="todo">
-          <b>Fehlt weiterhin</b>
-          Registergericht (Amtsgericht) und Vereinsregisternummer (VR …). Diese Angabe fehlt auch
-          im Impressum der bisherigen Website — für einen eingetragenen Verein ist sie nach
-          § 5 DDG aber vorgeschrieben.
-        </div>
+        <p class="adr">
+          Vereinsregister des Amtsgerichts Essen<br>
+          Registernummer: <strong>VR 6541</strong>
+        </p>
 
         <h3>Kontakt</h3>
         <p class="adr">
           Telefon: +49 172 6147111<br>
-          E-Mail: <a href="mailto:ralf.rouenhoff@gmail.com">ralf.rouenhoff@gmail.com</a>
+          E-Mail: <a href="mailto:eft@utrr.de">eft@utrr.de</a>
         </p>
-        <div class="todo">
-          <b>Empfehlung: Vereinsadresse statt privater</b>
-          Rechtlich genügen diese Angaben. Eine Adresse unter der eigenen Domain — etwa
-          <strong>info@erich-fill-triathlon.de</strong> — wäre aber die bessere Lösung: Sie wirkt nach
-          außen als Veranstalteradresse statt als Privatkontakt, und sie bleibt gültig, wenn die
-          Zuständigkeit im Verein wechselt. Die Domain hat bisher keine Postfächer, ein Konto liesse
-          sich aber einrichten.
-        </div>
 
-        <h3>Umsatzsteuer-Identifikationsnummer</h3>
-        <div class="todo">
-          <b>Zu prüfen</b>
-          Nur anzugeben, falls der Verein eine USt-IdNr. nach § 27 a UStG besitzt. Viele Vereine
-          haben keine — dann entfällt dieser Abschnitt ersatzlos.
-        </div>
+        <p>Eine Umsatzsteuer-Identifikationsnummer nach § 27 a UStG besitzt der Verein nicht.</p>
       </div>
 
       <div class="doc-block">
@@ -134,8 +110,8 @@
       <div class="doc-block">
         <h2>Veranstaltung</h2>
         <p class="adr">
-          <strong>Erich-Fill-Triathlon Taunusstein</strong><br>
-          39. Auflage · Sonntag, 16. Mai 2027<br>
+          <strong>39. Erich-Fill-Triathlon Taunusstein</strong><br>
+          Sonntag, 16. Mai 2027<br>
           Freibad Taunusstein-Hahn, Zum Schwimmbad, 65232 Taunusstein
         </p>
         <p>Die Anmeldung wird über einen externen Dienstleister abgewickelt. Für dessen Angebot
@@ -144,26 +120,10 @@
 
       <div class="doc-block">
         <h2>Bildnachweis</h2>
-        <p>Die Fotos der Galerie und der Veranstaltungsseiten stammen von <strong>Kathrin</strong>.</p>
-        <div class="todo">
-          <b>Nutzungsrechte schriftlich klären</b>
-          Dass die Aufnahmen beauftragt und bezahlt wurden, überträgt das Urheberrecht
-          <strong>nicht</strong> — nach § 29 Abs. 1 UrhG ist es in Deutschland nicht übertragbar.
-          Der Verein erwirbt Nutzungsrechte; Urheberin bleibt die Fotografin. Auch das Recht auf
-          Namensnennung (§ 13 UrhG) erlischt nicht durch Bezahlung, sondern nur durch ausdrückliche
-          Vereinbarung. Bis das geregelt ist, bleibt die Nennung hier stehen.
-          <br><br>
-          Eine kurze schriftliche Vereinbarung sollte vier Punkte festhalten:
-          <strong>Umfang</strong> (ausschließlich oder einfach, unbefristet, alle Medien),
-          <strong>Bearbeitung</strong> (Zuschnitt und Farbanpassung — die Galeriebilder sind bereits
-          entsättigt), <strong>Weitergabe</strong> (dürfen Sponsoren und Presse die Bilder nutzen)
-          und <strong>Nennung</strong> (erforderlich und in welcher Form, oder abbedungen).
-          Ohne genaue Zweckbestimmung reichen die Rechte nach § 31 Abs. 5 UrhG nur so weit, wie der
-          Auftrag es erforderte.
-          <br><br>
-          Offen außerdem: vollständiger Name der Fotografin sowie die Quelle der Kartengrundlage
-          für die Streckenausschnitte im Race Briefing, falls sie aus einem Kartendienst stammt.
-        </div>
+        <p>Die Fotos dieser Website stammen von <strong>Kathrin Horn</strong>.</p>
+        <p>Die Aufnahmen der einzelnen Jahrgänge des Erich-Fill-Triathlons entstehen durch wechselnde
+        Fotografinnen und Fotografen. Die Urheber der Bilder früherer Jahre sind bei den jeweiligen
+        Galerien genannt.</p>
       </div>
 
       <div class="doc-block">
@@ -211,21 +171,100 @@
 
       <p class="doc-foot">
         Erich-Fill-Triathlon Taunusstein · Veranstalter: United Teams Rhein-Ruhr e.V. ·
-        Stand: 22. September 2026 — <strong>Entwurf, nicht veröffentlichungsreif</strong>
+        Stand: 3. Oktober 2026
       </p>
 
     </div>
   </section>
 </main>
 
-<footer class="footer ctx-deep">
-  <div class="container">
-    <div class="footer-bottom" style="margin-top:0;border-top:none">
-      <span>© 2026 Erich-Fill-Triathlon Taunusstein</span>
-      <span><a href="index.html">Zurück zur Website</a> · <a href="datenschutz.html">Datenschutz</a></span>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h3>Erich-Fill-Triathlon</h3>
+        <p class="foot-adr">
+          <span class="hl">Sonntag, 16. Mai 2027</span><br>
+          Freibad Taunusstein-Hahn<br>
+          Zum Schwimmbad, 65232 Taunusstein
+        </p>
+        <span class="utrr">
+          <span class="utrr-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span style="font-size:.8rem">Veranstalter: United Teams Rhein-Ruhr e.&nbsp;V.</span>
+        </span>
+      </div>
+      <div>
+        <h3>Veranstaltung</h3>
+        <ul role="list">
+          <li><a href="index.html#strecke">Strecke</a></li>
+          <li><a href="index.html#formate">Formate &amp; Gebühren</a></li>
+          <li><a href="ausschreibung-2027.html#wertungen">Wertungen</a></li>
+          <li><a href="ausschreibung-2027.html">Ausschreibung</a></li>
+          <li><span class="foot-wartet">Anmeldung ab 15.11.2026</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Kontakt &amp; Rechtliches</h3>
+        <ul role="list">
+          <li><a href="impressum.html">Kontakt</a></li>
+          <li><a href="impressum.html">Impressum</a></li>
+          <li><a href="datenschutz.html">Datenschutz</a></li>
+          <li><a href="ausschreibung-2027.html#teil-b">Teilnahmebedingungen</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-end">
+      <span>© 2026 United Teams Rhein-Ruhr e.&nbsp;V.</span>
+      <span>Fotos: Kathrin Horn</span>
     </div>
   </div>
 </footer>
+
+<script src="assets/anmeldung.js"></script>
+<script>
+(function () {
+  "use strict";
+
+  // Mobilmenue
+  var burger = document.getElementById("burger");
+  var mnav = document.getElementById("mnav");
+  burger.addEventListener("click", function () {
+    var open = mnav.classList.toggle("open");
+    burger.setAttribute("aria-expanded", open ? "true" : "false");
+    burger.setAttribute("aria-label", open ? "Menü schließen" : "Menü öffnen");
+  });
+  mnav.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") {
+      mnav.classList.remove("open");
+      burger.setAttribute("aria-expanded", "false");
+    }
+  });
+
+  // Anmelde-Button in der Leiste erst einblenden, wenn der Hero durch ist —
+  // oben steht er ohnehin gross im Bild.
+  var cta = document.getElementById("navCta");
+  var hero = document.getElementById("top");
+  if (window.IntersectionObserver && cta && hero) {
+    new IntersectionObserver(function (entries) {
+      cta.style.display = entries[0].isIntersecting ? "none" : "inline-flex";
+    }, { threshold: 0.25 }).observe(hero);
+  }
+
+  // Einblenden beim Scrollen. Bewusst sparsam: eine Bewegung, kurz,
+  // und nur einmal je Element.
+  var ups = document.querySelectorAll(".up");
+  if (!window.IntersectionObserver) {
+    ups.forEach(function (el) { el.classList.add("in"); });
+    return;
+  }
+  var obs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add("in"); obs.unobserve(en.target); }
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+  ups.forEach(function (el) { obs.observe(el); });
+})();
+</script>
 
 </body>
 </html>

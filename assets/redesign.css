@@ -1,0 +1,653 @@
+/* =====================================================================
+   Erich-Fill-Triathlon — REDESIGN-VARIANTE
+   Eigenes Stylesheet. site.css wird hier NICHT geladen, damit die
+   bestehende Seite unberuehrt bleibt und beide Entwuerfe nebeneinander
+   bestehen koennen.
+
+   Grundgedanke: Die UTRR-Farben bleiben vollstaendig erhalten, nur ihre
+   Gewichtung dreht sich. Bisher traegt Navy die Flaeche und Hell ist die
+   Ausnahme; hier traegt ein warmer Sandton die Flaeche und Navy wird zum
+   Akzent fuer Hero, Streckenband und Footer.
+   ===================================================================== */
+
+:root {
+  /* --- UTRR-Markenfarben, unveraendert --- */
+  --orange:      #FF4600;   /* Primaerakzent */
+  --orange-dark: #9E2B00;   /* Text auf Sand; #CC3800 kam nur auf 4,19:1 */
+  --volt:        #BFE03A;
+  --volt-deep:   #7F9A14;   /* traegt als Text auf Sand */
+  --blue:        #0D4F84;
+  --blue-light:  #5A9BD0;
+  --navy:        #10141A;
+  --navy-deep:   #080B0F;
+  --navy-soft:   #1A202A;
+
+  /* --- Neu: die warme Grundflaeche --- */
+  --sand:        #EDE9E0;   /* Hauptflaeche */
+  --sand-2:      #E4DFD3;   /* abgesetzte Flaechen, Karten */
+  --sand-3:      #D8D2C4;   /* Linien, Rahmen */
+  --ink:         #1C1A16;   /* Fließtext, warmes Schwarz */
+  --ink-mute:    #5F5A4F;   /* Sekundaertext auf Sand */
+
+  /* Kontextvariablen */
+  --bg:    var(--sand);
+  --txt:   var(--ink);
+  --mute:  var(--ink-mute);
+  --line:  var(--sand-3);
+  --acc:   var(--orange-dark);
+
+  /* Typografie */
+  --fd: 'Barlow Condensed', sans-serif;   /* Display */
+  --fu: 'Barlow', sans-serif;             /* UI, Fließtext */
+  --fm: 'Space Mono', ui-monospace, monospace;  /* Daten, Labels */
+
+  --maxw: 1320px;
+  --gut: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* dunkler Kontext: kehrt die Variablen um, statt Farben doppelt zu pflegen */
+.dark {
+  --bg:   var(--navy);
+  --txt:  #F2EFE8;
+  --mute: #A9A398;
+  --line: rgba(255,255,255,.14);
+  --acc:  var(--orange);
+  background: var(--bg); color: var(--txt);
+}
+.deep { --bg: var(--navy-deep); }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--sand); color: var(--ink);
+  font-family: var(--fu); font-size: 1rem; line-height: 1.65;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+img { max-width: 100%; display: block; height: auto; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 2px; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding-inline: var(--gut); }
+.sec  { padding-block: clamp(4rem, 9vw, 8rem); }
+
+/* =========================================================
+   TYPOGRAFIE — der eigentliche Hebel.
+   Displayzeilen stehen eng (line-height unter 1), damit
+   mehrzeilige Ueberschriften als Block wirken, nicht als Zeilen.
+   ========================================================= */
+.d1, .d2, .d3 {
+  font-family: var(--fd); font-weight: 900;
+  text-transform: uppercase; line-height: .86;
+  letter-spacing: -.012em; color: var(--txt);
+  text-wrap: balance;
+}
+.d1 { font-size: clamp(3.1rem, 11.5vw, 9rem); }
+.d2 { font-size: clamp(2.4rem, 6.4vw, 5rem); }
+.d3 { font-size: clamp(1.6rem, 3.1vw, 2.5rem); line-height: .92; }
+
+/* Space Mono traegt alle Daten: Distanzen, Termine, Gebuehren, Labels.
+   Das gibt der Seite den Charakter von Startunterlagen. */
+.mono {
+  font-family: var(--fm); font-weight: 400;
+  font-size: .72rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--mute);
+}
+.mono-b { font-weight: 700; color: var(--txt); }
+
+.lead { font-size: clamp(1.05rem, 1.7vw, 1.3rem); line-height: 1.6; color: var(--mute); max-width: 54ch; }
+.lead strong { color: var(--txt); font-weight: 600; }
+p.body { font-size: 1rem; line-height: 1.75; color: var(--mute); max-width: 60ch; }
+p.body strong { color: var(--txt); font-weight: 600; }
+
+/* Kicker ueber den Ueberschriften */
+.kick {
+  font-family: var(--fm); font-size: .7rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .13em;
+  color: var(--acc); margin-bottom: 1.1rem;
+  display: inline-flex; align-items: center; gap: .55rem;
+}
+.kick::before { content:''; width: 1.6rem; height: 2px; background: currentColor; }
+
+/* =========================================================
+   NAVIGATION — schlank, zurueckhaltend, keine Kiste
+   ========================================================= */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(237,233,224,.88);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border-bottom: 1px solid var(--line);
+}
+.nav-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; height: 4.5rem; }
+.nav-logo img { height: 2.3rem; width: auto; }
+.nav-links { display: none; gap: 1.9rem; list-style: none; }
+@media (min-width: 1000px) { .nav-links { display: flex; } }
+.nav-links a {
+  font-family: var(--fm); font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; color: var(--ink-mute);
+  padding-block: .35rem; border-bottom: 2px solid transparent;
+  transition: color .18s, border-color .18s;
+  /* Seit "Aktuelles" dazukam und der Anmeldeknopf ein Datum traegt, wird die
+     Zeile knapp. Ohne nowrap brechen "Das Rennen" und "Archiv 2026" knapp
+     oberhalb von 1000 px mitten im Namen um. */
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--orange-dark); border-bottom-color: var(--orange); }
+/* Der Knopf in der Leiste traegt seit dem 31.10.2026 ein Datum. Ohne nowrap
+   bricht er zweizeilig um und wird 69 statt 50 px hoch — er fuellt dann fast
+   die ganze 72-px-Leiste. Gilt ueber die Position, nicht ueber die ID, damit
+   es auch greift, wenn aus dem Platzhalter ein echter Anmeldelink wird. */
+.nav-in .btn { white-space: nowrap; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  font-family: var(--fm); font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  padding: .85rem 1.5rem; border: 2px solid transparent;
+  /* <button> bringt sonst den Grauton des Systems mit und traegt dann
+     helle Schrift auf heller Flaeche. */
+  background: transparent; cursor: pointer;
+  transition: background .18s, color .18s, border-color .18s, transform .18s;
+}
+.btn:active { transform: translateY(1px); }
+.btn-pri { background: var(--orange); color: var(--navy); }
+.btn-pri:hover { background: #E03C00; }
+.btn-out { border-color: currentColor; color: var(--txt); }
+.btn-out:hover { background: var(--txt); color: var(--bg); }
+.dark .btn-out, .hero .btn-out, .doc-hero .btn-out { color: #F2EFE8; }
+.dark .btn-out:hover, .hero .btn-out:hover, .doc-hero .btn-out:hover { background: #F2EFE8; color: var(--navy); }
+
+/* 44x44 ist die uebliche Mindestgroesse fuer eine Antippflaeche;
+   mit .55rem Polsterung kam der Knopf nur auf 40x34. */
+.burger { display: flex; flex-direction: column; justify-content: center; align-items: center;
+  gap: 5px; background: none; border: 0; cursor: pointer; width: 44px; height: 44px; padding: 0; }
+@media (min-width: 1000px) { .burger { display: none; } }
+.burger span { width: 22px; height: 2px; background: var(--ink); transition: transform .25s, opacity .25s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mnav { display: none; flex-direction: column; background: var(--sand); border-top: 1px solid var(--line); }
+.mnav.open { display: flex; }
+.mnav a {
+  padding: 1rem var(--gut); font-family: var(--fm); font-size: .8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--line);
+}
+
+/* =========================================================
+   HERO — ein grosses Foto, eine grosse Zeile, Daten in Mono
+   ========================================================= */
+.hero { position: relative; background: var(--navy); color: #F2EFE8; isolation: isolate; }
+.hero-img { position: absolute; inset: 0; z-index: -2; }
+.hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 32%; }
+.hero-veil {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    linear-gradient(to right, rgba(8,11,15,.94) 0%, rgba(8,11,15,.82) 38%, rgba(8,11,15,.38) 72%, rgba(8,11,15,.52) 100%),
+    linear-gradient(to top, rgba(8,11,15,.92) 0%, rgba(8,11,15,0) 42%);
+}
+.hero-in { padding-block: clamp(5rem, 15vw, 10rem) clamp(2.5rem, 6vw, 4rem); }
+.hero-date {
+  display: inline-block; font-family: var(--fm); font-weight: 700;
+  font-size: clamp(.7rem, 1.5vw, .82rem); letter-spacing: .1em; text-transform: uppercase;
+  background: var(--volt); color: var(--navy);
+  padding: .55rem 1.1rem; margin-bottom: clamp(1.4rem, 3vw, 2.2rem);
+}
+.hero-logo { width: min(100%, 44rem); margin-bottom: 1.6rem; }
+.hero-sub { font-size: clamp(1rem, 1.9vw, 1.3rem); color: #CFC9BD; max-width: 44ch; line-height: 1.55; }
+.hero-sub strong { color: #fff; font-weight: 600; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: clamp(1.8rem, 4vw, 2.6rem); }
+
+/* Datenleiste am Hero-Fuss — ersetzt die alte Stats-Zeile */
+/* Seit dem 31.10.2026 stehen hier die beiden Wettkampfformate statt einer
+   Reihe gemischter Kennzahlen. Die alte Reihe nannte "40 km Radstrecke" —
+   das gilt aber nur fuer Olympisch, der Sprint faehrt 20 km. */
+.hero-facts {
+  display: grid; grid-template-columns: 1fr;
+  border-top: 1px solid rgba(255,255,255,.17);
+}
+@media (min-width: 760px) { .hero-facts { grid-template-columns: repeat(2, 1fr); } }
+/* Schmal untereinander, deshalb trennt eine Linie unten statt rechts. */
+.fact { padding: 1.3rem 0 1.4rem; border-bottom: 1px solid rgba(255,255,255,.17); }
+.fact:last-child { border-bottom: 0; }
+@media (min-width: 760px) {
+  .fact { padding: 1.5rem 0 1.6rem; border-bottom: 0;
+          border-right: 1px solid rgba(255,255,255,.17); padding-right: 1.6rem; }
+  .fact:last-child { border-right: 0; }
+}
+.fact-n {
+  font-family: var(--fd); font-weight: 900; line-height: 1;
+  font-size: clamp(2.1rem, 5vw, 3.2rem); color: #fff;
+}
+.fact-n small { font-size: .45em; color: var(--volt); margin-left: .12em; }
+.fact-l {
+  font-family: var(--fm); font-size: .62rem; font-weight: 400;
+  text-transform: uppercase; letter-spacing: .11em; color: #A9A398; margin-top: .45rem;
+}
+.fact-d {
+  font-family: var(--fm); font-size: .74rem; letter-spacing: .03em;
+  color: #CFC9BD; margin-top: .5rem; line-height: 1.55;
+}
+/* Schmal umbricht die Zeile — dann aber am Trennzeichen und nicht mitten
+   in einer Angabe, sonst steht "Lauf" allein in der zweiten Zeile. */
+.fact-d span { white-space: nowrap; }
+
+/* =========================================================
+   MISSION — der erzaehlende Abschnitt, den die alte Seite nicht hat
+   ========================================================= */
+.mission { display: grid; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+@media (min-width: 900px) { .mission { grid-template-columns: 1fr 1.05fr; } }
+.mission-img { position: relative; aspect-ratio: 4/5; overflow: hidden; }
+.mission-img img { width: 100%; height: 100%; object-fit: cover; }
+.mission-tag {
+  position: absolute; left: 0; bottom: 0;
+  background: var(--orange); color: var(--navy);
+  font-family: var(--fm); font-size: .66rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; padding: .6rem 1rem;
+}
+.mission p + p { margin-top: 1.1rem; }
+.mission .d2 { margin-bottom: 1.5rem; }
+.mission-meta {
+  margin-top: 1.8rem; padding-top: 1.3rem; border-top: 1px solid var(--line);
+  display: flex; flex-wrap: wrap; gap: 1.2rem 2.2rem; align-items: center;
+}
+
+/* =========================================================
+   STRECKENBAND — drei Disziplinen, dunkel, grossformatig
+   ========================================================= */
+.disz { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .disz { grid-template-columns: repeat(3, 1fr); } }
+.disz-card { position: relative; min-height: clamp(22rem, 44vw, 34rem); overflow: hidden; isolation: isolate; }
+.disz-card img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: -2; transition: transform .7s cubic-bezier(.2,.7,.3,1);
+}
+.disz-card::after {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, rgba(8,11,15,.93) 12%, rgba(8,11,15,.42) 55%, rgba(8,11,15,.22) 100%);
+}
+.disz-card:hover img { transform: scale(1.045); }
+.disz-body { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(1.4rem, 2.6vw, 2.1rem); }
+.disz-no {
+  font-family: var(--fd); font-weight: 900; font-size: clamp(2.6rem, 5.5vw, 4rem);
+  line-height: .8; color: var(--volt); display: block; margin-bottom: .3rem;
+}
+.disz-name {
+  font-family: var(--fd); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(1.7rem, 3.2vw, 2.4rem); line-height: .92; color: #fff;
+}
+.disz-meta { font-family: var(--fm); font-size: .68rem; letter-spacing: .06em; color: #CFC9BD; margin-top: .6rem; }
+.disz-txt { font-size: .88rem; line-height: 1.65; color: #B5AFA3; margin-top: .8rem; max-width: 34ch; }
+
+/* Hinweis unter dem Band */
+.note {
+  border-left: 3px solid var(--orange); padding: 1.3rem 0 1.3rem 1.4rem;
+  max-width: 68ch;
+}
+.note-l { font-family: var(--fm); font-size: .66rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--acc); margin-bottom: .5rem; }
+.note-t { font-size: .94rem; line-height: 1.7; color: var(--mute); }
+.note-t strong { color: var(--txt); font-weight: 600; }
+
+/* =========================================================
+   FORMATE — Gebuehrentabellen, Daten in Mono
+   ========================================================= */
+.fmt { display: grid; gap: clamp(1.2rem, 2.5vw, 2rem); }
+@media (min-width: 800px) { .fmt { grid-template-columns: 1fr 1fr; } }
+.fmt-card { background: var(--sand-2); border-top: 3px solid var(--orange); padding: clamp(1.5rem, 3vw, 2.2rem); }
+.fmt-head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.fmt-name { font-family: var(--fd); font-weight: 900; text-transform: uppercase; font-size: clamp(1.8rem, 3.4vw, 2.6rem); line-height: .9; }
+.fmt-dist { font-family: var(--fm); font-size: .68rem; letter-spacing: .05em; color: var(--ink-mute); margin-top: .5rem; }
+.tbl { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-family: var(--fm); }
+.tbl caption { text-align: left; font-size: .62rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--ink-mute); padding-bottom: .7rem; }
+.tbl th, .tbl td { padding: .62rem .35rem; text-align: right; font-size: .82rem; border-bottom: 1px solid var(--sand-3); }
+.tbl thead th { font-size: .6rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-mute); }
+.tbl tbody th { text-align: left; font-weight: 400; color: var(--ink-mute); }
+.tbl tbody td { font-weight: 700; color: var(--ink); white-space: nowrap; }
+.tbl tbody tr:first-child td { color: var(--orange-dark); }
+.tbl tbody tr:last-child th, .tbl tbody tr:last-child td { border-bottom: 0; }
+.fmt-note { margin-top: 1.1rem; font-size: .85rem; line-height: 1.65; color: var(--ink-mute); }
+.fmt-note strong { color: var(--ink); font-weight: 600; }
+
+/* =========================================================
+   WERTUNGEN — schlanke Datenliste statt Kartenraster
+   ========================================================= */
+.defs { border-top: 1px solid var(--line); margin-top: clamp(2.5rem, 5vw, 4rem); }
+.def {
+  display: grid; gap: .5rem 2.5rem; padding: clamp(1.3rem, 2.4vw, 1.9rem) 0;
+  border-bottom: 1px solid var(--line); align-items: start;
+}
+@media (min-width: 760px) { .def { grid-template-columns: 13rem 1fr auto; } }
+.def-k { font-family: var(--fd); font-weight: 900; text-transform: uppercase; font-size: 1.35rem; line-height: 1; }
+.def-v { font-size: .93rem; line-height: 1.7; color: var(--mute); max-width: 58ch; }
+.def-v strong { color: var(--txt); font-weight: 600; }
+.def-x { font-family: var(--fm); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: var(--acc); white-space: nowrap; }
+
+/* =========================================================
+   LINKBAND — ersetzt die Kartenwand "alles was du wissen musst"
+   ========================================================= */
+.links { display: grid; gap: .75rem; grid-template-columns: 1fr; margin-top: 2rem; }
+@media (min-width: 620px) { .links { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1000px) { .links { grid-template-columns: repeat(3, 1fr); } }
+.lnk {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.05rem 1.3rem; border: 1px solid var(--line); background: var(--sand-2);
+  font-family: var(--fm); font-size: .73rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .05em;
+  transition: background .18s, border-color .18s, transform .18s;
+}
+.lnk:hover { background: var(--navy); color: #F2EFE8; border-color: var(--navy); transform: translateX(3px); }
+/* Im dunklen Kontext erbte .lnk die helle Schrift, behielt aber die helle
+   Flaeche — 1,16:1. Dort braucht das Band eigene Werte. */
+.dark .lnk { background: rgba(255,255,255,.055); border-color: rgba(255,255,255,.16); color: #F2EFE8; }
+.dark .lnk:hover { background: #F2EFE8; color: var(--navy); border-color: #F2EFE8; }
+.dark .lnk:hover span:last-child { color: var(--orange-dark); }
+/* Orange auf Sand kam beim Pfeil nur auf 2,58:1 — er traegt die
+   Bedeutung ohnehin nicht allein, also erbt er die Textfarbe. */
+.lnk span:last-child { color: inherit; font-size: 1rem; opacity: .55; }
+.lnk:hover span:last-child { color: var(--volt); }
+
+/* =========================================================
+   AKTUELLES — Zeitstrahl statt Kartenraster
+   ========================================================= */
+.news { border-top: 1px solid var(--line); }
+.item {
+  display: grid; gap: .6rem 2.5rem; padding: clamp(1.5rem, 3vw, 2.3rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+@media (min-width: 800px) { .item { grid-template-columns: 11rem 1fr; } }
+.item-d { font-family: var(--fm); font-size: .68rem; letter-spacing: .07em; text-transform: uppercase; color: var(--acc); padding-top: .35rem; }
+.item-t { font-family: var(--fd); font-weight: 900; text-transform: uppercase; font-size: clamp(1.55rem, 3vw, 2.3rem); line-height: .93; margin-bottom: .55rem; text-wrap: balance; }
+/* Zeitungsgefaelle: die erste Meldung ist der Aufmacher und steht
+   groesser als die folgenden. Ohne das lesen sich vier gleich grosse
+   Schlagzeilen wie eine Liste, nicht wie eine Seite. */
+.item:first-child .item-t { font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: .9; }
+.item:first-child .item-b { font-size: 1.02rem; }
+.item:first-child { padding-top: 0; }
+.item-b { font-size: .95rem; line-height: 1.7; color: var(--mute); max-width: 62ch; }
+.item-b strong { color: var(--txt); font-weight: 600; }
+.item-b a { color: var(--acc); font-weight: 600; border-bottom: 1px solid currentColor; }
+
+/* =========================================================
+   ARCHIV / GALERIE
+   ========================================================= */
+.gal { display: grid; grid-template-columns: repeat(2, 1fr); gap: .5rem; }
+@media (min-width: 760px) { .gal { grid-template-columns: repeat(4, 1fr); } }
+.gal a { aspect-ratio: 3/2; overflow: hidden; display: block; }
+.gal img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s cubic-bezier(.2,.7,.3,1); }
+.gal a:hover img { transform: scale(1.07); }
+
+/* =========================================================
+   PARTNER + FOOTER
+   ========================================================= */
+.sponsors { display: flex; flex-wrap: wrap; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; justify-content: center; }
+.sp {
+  font-family: var(--fd); font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 900;
+  text-transform: uppercase; color: var(--ink); opacity: .55; transition: opacity .2s;
+}
+.sp:hover { opacity: 1; }
+
+.foot { background: var(--navy-deep); color: #A9A398; padding-block: clamp(3rem, 6vw, 4.5rem) 2rem; }
+.foot-grid { display: grid; gap: 2.5rem; grid-template-columns: 1fr; }
+@media (min-width: 820px) { .foot-grid { grid-template-columns: 1.4fr 1fr 1fr; } }
+.foot h3 { font-family: var(--fm); font-size: .66rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: #F2EFE8; margin-bottom: 1rem; }
+.foot ul { list-style: none; display: flex; flex-direction: column; gap: .55rem; }
+.foot a { font-size: .875rem; transition: color .18s; }
+.foot a:hover { color: var(--volt); }
+.foot-adr { font-size: .875rem; line-height: 1.8; }
+.foot-adr .hl { color: var(--volt); font-family: var(--fm); font-size: .8rem; }
+.utrr { display: inline-flex; align-items: center; gap: .5rem; margin-top: 1.2rem; }
+.utrr-mark { display: inline-flex; gap: 2px; }
+.utrr-mark i { width: 3.5px; height: 15px; transform: skewX(-12deg); border-radius: 1px; }
+.utrr-mark i:nth-child(1) { background: #2C2E35; }
+.utrr-mark i:nth-child(2) { background: #FF4600; }
+.utrr-mark i:nth-child(3) { background: #B0B1B3; }
+.utrr-mark i:nth-child(4) { background: #CCFF00; }
+.foot-end {
+  margin-top: 2.5rem; padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,.1);
+  display: flex; flex-wrap: wrap; justify-content: space-between; gap: .6rem 1.5rem;
+  font-family: var(--fm); font-size: .66rem; letter-spacing: .05em; text-transform: uppercase;
+}
+
+/* =========================================================
+   BEWEGUNG — bewusst sparsam.
+   Die Referenzseite kommt fast ohne aus; was traegt, ist
+   Groesse und Ruhe, nicht Animation.
+   ========================================================= */
+.up { opacity: 0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1); }
+.up.in { opacity: 1; transform: none; }
+.up.s1 { transition-delay: .07s; } .up.s2 { transition-delay: .14s; } .up.s3 { transition-delay: .21s; }
+
+.skip {
+  position: absolute; top: -999px; left: 1rem; z-index: 999;
+  background: var(--volt); color: var(--navy); padding: .75rem 1.4rem;
+  font-family: var(--fm); font-size: .75rem; font-weight: 700; text-transform: uppercase;
+}
+.skip:focus { top: 1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .up { opacity: 1 !important; transform: none !important; }
+}
+
+/* =====================================================================
+   DOKUMENTSEITEN
+   Ausschreibung, Impressum, Datenschutz. Fliesstext auf warmem Grund,
+   Daten und Kleinlabels in Space Mono. Enthaelt auch die Druckgrundlage:
+   ueber "Drucken -> Als PDF sichern" faellt aus jeder dieser Seiten ein
+   A4-Dokument heraus.
+   ===================================================================== */
+
+/* Kopf einer Dokumentseite: dunkel, damit das Negativlogo sitzt und der
+   Titel traegt — derselbe Anker wie der Hero auf der Startseite. */
+.doc-hero {
+  background: var(--navy); color: #F2EFE8;
+  padding-block: clamp(3rem, 7vw, 5rem) clamp(2rem, 4vw, 3rem);
+}
+.doc-hero .kick { color: var(--volt); }
+.doc-title {
+  font-family: var(--fd); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(2.1rem, 5.4vw, 4rem); line-height: .88;
+  letter-spacing: -.012em; color: #fff; text-wrap: balance;
+}
+.doc-sub { margin-top: .9rem; font-size: clamp(1rem, 1.7vw, 1.2rem); color: #CFC9BD; max-width: 52ch; }
+.doc-meta {
+  margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid rgba(255,255,255,.17);
+  display: flex; flex-wrap: wrap; gap: .6rem 2rem;
+  font-family: var(--fm); font-size: .7rem; letter-spacing: .06em;
+  text-transform: uppercase; color: #A9A398;
+}
+.doc-meta b { color: #fff; font-weight: 700; }
+.doc-actions { margin-top: 1.6rem; display: flex; flex-wrap: wrap; gap: .7rem; }
+
+.doc { background: var(--sand); color: var(--ink); padding-block: clamp(3rem, 6vw, 4.5rem) clamp(4rem, 7vw, 6rem); }
+.doc .wrap { max-width: 860px; }
+.doc-block { margin-bottom: clamp(2rem, 4vw, 3rem); }
+.doc-block:last-child { margin-bottom: 0; }
+.doc h2 {
+  font-family: var(--fd); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: .95; letter-spacing: -.008em;
+  margin-bottom: 1rem; padding-bottom: .55rem;
+  border-bottom: 2px solid var(--orange);
+}
+.doc h3 {
+  font-family: var(--fm); font-weight: 700; text-transform: uppercase;
+  font-size: .72rem; letter-spacing: .1em; color: var(--acc);
+  margin: 1.6rem 0 .5rem;
+}
+.doc p  { margin-bottom: .85rem; line-height: 1.75; color: var(--ink-mute); }
+.doc p:last-child { margin-bottom: 0; }
+.doc ul, .doc ol { margin: 0 0 .9rem 1.2rem; }
+.doc li { margin-bottom: .4rem; line-height: 1.7; color: var(--ink-mute); }
+.doc strong { font-weight: 600; color: var(--ink); }
+.doc a { color: var(--acc); text-decoration: underline; text-underline-offset: 2px; }
+.doc a:hover { text-decoration: none; }
+
+/* Paragraphennummern der Teilnahmebedingungen */
+.doc .pnum {
+  font-family: var(--fm); font-weight: 700; font-size: .7rem;
+  letter-spacing: .08em; color: var(--acc); display: block; margin-bottom: .2rem;
+}
+
+/* Inhaltsverzeichnis */
+.toc { background: var(--sand-2); padding: clamp(1.3rem, 2.5vw, 1.9rem); margin-bottom: clamp(2rem, 4vw, 3rem); }
+.toc h2 { font-size: 1.1rem; border-bottom-width: 1px; margin-bottom: .9rem; padding-bottom: .4rem; }
+.toc .tg {
+  font-family: var(--fm); font-size: .66rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-mute); margin: 1rem 0 .5rem;
+}
+.toc .tg:first-of-type { margin-top: 0; }
+.toc a { display: block; padding: .22rem 0; font-size: .88rem; text-decoration: none; color: var(--ink); }
+.toc a:hover { color: var(--acc); text-decoration: underline; }
+
+/* Tabellen in Dokumenten — Zahlen immer in Mono */
+.doc table { width: 100%; border-collapse: collapse; margin: .9rem 0 1.2rem; }
+.doc caption, .fee-wrap > p:first-child {
+  text-align: left; font-family: var(--fm); font-size: .64rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); padding-bottom: .6rem;
+}
+.doc th, .doc td { padding: .6rem .5rem; border-bottom: 1px solid var(--sand-3); font-size: .9rem; text-align: left; }
+.doc thead th {
+  font-family: var(--fm); font-size: .62rem; font-weight: 700;
+  letter-spacing: .09em; text-transform: uppercase; color: var(--ink-mute);
+}
+.doc .num, .doc .pnum-cell { font-family: var(--fm); font-weight: 700; text-align: right; color: var(--ink); white-space: nowrap; }
+.doc .period { color: var(--ink-mute); }
+.doc tbody tr:last-child th, .doc tbody tr:last-child td { border-bottom: 0; }
+
+/* Sachhinweis in Dokumenten. Heisst .docnote, weil .note auf der
+   Startseite bereits den orangen Hinweis traegt. */
+.docnote {
+  border-left: 3px solid var(--blue); background: var(--sand-2);
+  padding: 1rem 1.2rem; font-size: .9rem; margin: 1.1rem 0;
+}
+.docnote b { color: var(--blue); font-family: var(--fm); font-size: .68rem;
+  letter-spacing: .1em; text-transform: uppercase; display: block; margin-bottom: .35rem; }
+
+.doc-foot {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem); padding-top: 1.3rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--fm); font-size: .68rem; line-height: 1.8;
+  letter-spacing: .03em; color: var(--ink-mute);
+}
+
+.print-only { display: none; }
+
+@media print {
+  @page { size: A4; margin: 18mm 16mm 20mm; }
+  html, body { background: #fff !important; color: #111 !important; font-size: 10.5pt; }
+  .nav, .mnav, .doc-actions, .foot, footer, .skip { display: none !important; }
+  .doc-hero { display: none !important; }
+  .print-only { display: block; }
+  .print-head { margin-bottom: 10mm; padding-bottom: 4mm; border-bottom: 2pt solid #111; }
+  .print-head .pm { font-family: var(--fd); font-weight: 900; text-transform: uppercase; font-size: 18pt; line-height: 1; }
+  .print-head .ps { font-size: 11pt; margin-top: 2mm; }
+  .print-head .pd { font-family: var(--fm); font-size: 8pt; margin-top: 3mm; color: #333; }
+  .doc { background: #fff !important; padding: 0 !important; }
+  .doc .wrap { max-width: none; padding: 0; }
+  .doc h2 { font-size: 13pt; border-bottom: 1pt solid #111; color: #111; break-after: avoid; }
+  .doc h3 { font-size: 9pt; color: #111; break-after: avoid; }
+  .doc p, .doc li { color: #111; }
+  .doc a { color: #111; text-decoration: none; }
+  .doc-block { break-inside: avoid-page; }
+  .toc { background: none; border: 1pt solid #111; }
+  .docnote { background: none; border: 1pt solid #111; border-left-width: 3pt; }
+  .doc th, .doc td { border-bottom: .5pt solid #999; }
+  .doc-foot { border-top: 1pt solid #111; color: #111; }
+}
+
+/* --- Bausteine, die nur die Ausschreibung braucht --- */
+
+/* Teil-Trenner (Teil A / Teil B): dunkler Balken als Zaesur im Dokument */
+.teil {
+  margin: clamp(2.5rem, 5vw, 4rem) 0 clamp(1.5rem, 3vw, 2.25rem);
+  padding: clamp(1.2rem, 2.4vw, 1.7rem);
+  background: var(--navy); color: #F2EFE8;
+  scroll-margin-top: 5rem;
+}
+.teil:first-child { margin-top: 0; }
+.teil .tl {
+  font-family: var(--fm); font-size: .66rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .14em; color: var(--volt); margin-bottom: .5rem;
+}
+.teil h2 {
+  font-family: var(--fd); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(1.4rem, 3.4vw, 2.1rem); line-height: .95; color: #fff;
+  border: none; margin: 0 0 .5rem; padding: 0;
+}
+.teil p { margin: 0; font-size: .9rem; line-height: 1.7; color: #A9A398; max-width: 68ch; }
+
+/* Eckdaten-Kasten */
+.facts {
+  display: grid; grid-template-columns: 1fr; gap: 0;
+  margin-bottom: clamp(2rem, 4vw, 2.75rem);
+  border: 1px solid var(--sand-3); background: var(--sand-2);
+}
+@media (min-width: 680px) { .facts { grid-template-columns: 1fr 1fr; } }
+.fact { padding: 1rem 1.2rem; border-top: 1px solid var(--sand-3); }
+.facts .fact:first-child, .facts .fact:nth-child(2) { border-top: 0; }
+@media (max-width: 679px) { .facts .fact:nth-child(2) { border-top: 1px solid var(--sand-3); } }
+.fact dt {
+  font-family: var(--fm); font-size: .62rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--ink-mute); margin-bottom: .3rem;
+}
+.fact dd { margin: 0; font-weight: 600; font-size: .95rem; color: var(--ink); }
+
+.fee-wrap { overflow-x: auto; margin-bottom: 1rem; }
+.toc-grid { display: grid; gap: .25rem 2rem; grid-template-columns: 1fr; }
+@media (min-width: 680px) { .toc-grid { grid-template-columns: 1fr 1fr; } }
+
+@media print {
+  .teil { background: #fff !important; color: #111 !important; border: none;
+          border-top: 2.5pt solid #111; border-bottom: 1pt solid #111;
+          padding: 8pt 0; margin: 0 0 12pt; break-inside: avoid; break-after: avoid; }
+  .teil .tl { color: #444; font-size: 7.5pt; }
+  .teil h2 { color: #111; font-size: 15pt; }
+  .teil p  { color: #333; font-size: 9pt; }
+  .facts { border: 1pt solid #111; background: none; margin-bottom: 12pt; break-inside: avoid; }
+  .fact { border-top: .5pt solid #999; padding: 5pt 7pt; }
+  .fact dt { color: #444; font-size: 7pt; }
+  .fact dd { font-size: 9.5pt; color: #111; }
+  .fee-wrap { overflow: visible; }
+}
+
+
+/* --- Antippflaechen auf schmalen Schirmen ---
+   Reine Textlinks im Fliesstext bleiben, wie sie sind. Links, die als
+   Navigation dienen — Inhaltsverzeichnis und Fusszeilenlisten — brauchen
+   auf dem Telefon mehr Hoehe, sonst trifft man sie schlecht. */
+@media (max-width: 760px) {
+  .toc a { padding: .55rem 0; }
+  .foot ul { gap: .2rem; }
+  .foot ul a { display: inline-block; padding: .45rem 0; }
+  .foot-end { gap: .8rem 1.5rem; }
+}
+
+/* --- Anmeldung noch nicht geoeffnet ---
+   Ein Knopf, der auf ein leeres Portal zeigt, aergert mehr als er nuetzt.
+   Bis das Anmeldeportal offen ist, steht hier ein Hinweis ohne Verweis:
+   gleiche Form, aber gedaempft und ohne Mauszeiger-Hand. */
+.btn-wartet { cursor: default; background: var(--sand-3); color: var(--ink); }
+.dark .btn-wartet, .hero .btn-wartet { background: rgba(255,255,255,.14); color: #F2EFE8; }
+.btn-wartet:hover { background: var(--sand-3); }
+.dark .btn-wartet:hover, .hero .btn-wartet:hover { background: rgba(255,255,255,.14); }
+.lnk-wartet { cursor: default; opacity: .62; }
+.lnk-wartet:hover { background: var(--sand-2); color: inherit; border-color: var(--line); transform: none; }
+.dark .lnk-wartet:hover { background: rgba(255,255,255,.055); color: #F2EFE8; }
+.mnav-hinweis {
+  padding: 1rem clamp(1.25rem, 4vw, 3rem); font-family: var(--fm); font-size: .8rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+  border-bottom: 1px solid var(--line); color: var(--ink-mute);
+}
+/* #78736A kam auf dem Footer nur auf 4,19:1 — #8A857A haelt 5,37:1. */
+.foot-wartet { font-size: .875rem; color: #8A857A; }
+
+/* --- Partnerlogos ---
+   Die Naspa liefert ihr Logo als Negativfassung auf Sparkassen-Rot aus.
+   Ein Partnerlogo wird nicht umgefaerbt, also steht der rote Block so auf
+   dem Sand — mit Luft darum, damit er als eigenes Objekt liest. */
+.sp-logo {
+  display: inline-block; line-height: 0;
+  transition: transform .2s;
+}
+.sp-logo img { width: auto; height: clamp(4rem, 9vw, 6.2rem); }
+.sp-logo:hover { transform: translateY(-2px); }
