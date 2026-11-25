@@ -1,3 +1,16 @@
 [build]
   publish = "."
   command = ""
+
+# Interne Projektdateien nicht veröffentlichen
+[[redirects]]
+  from = "/README.md"
+  to = "/index.html"
+  status = 404
+  force = true
+
+[[redirects]]
+  from = "/CLAUDE.md"
+  to = "/index.html"
+  status = 404
+  force = true
