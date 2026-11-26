@@ -651,3 +651,7 @@ p.body strong { color: var(--txt); font-weight: 600; }
 }
 .sp-logo img { width: auto; height: clamp(4rem, 9vw, 6.2rem); }
 .sp-logo:hover { transform: translateY(-2px); }
+
+/* HTV-Genehmigungsbadge unter den Fakten der Ausschreibung. */
+.genehmigung-badge { margin: 1.6rem 0 0; }
+.genehmigung-badge img { display: block; width: 100%; max-width: 520px; height: auto; }
